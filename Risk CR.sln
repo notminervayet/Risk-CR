@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36414.22 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Risk CR", "Risk CR\Risk CR.csproj", "{021887E9-B50B-49CB-8EB3-C4F649BB3782}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{021887E9-B50B-49CB-8EB3-C4F649BB3782}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{021887E9-B50B-49CB-8EB3-C4F649BB3782}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{021887E9-B50B-49CB-8EB3-C4F649BB3782}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{021887E9-B50B-49CB-8EB3-C4F649BB3782}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C1380DFF-7206-458F-95A5-46C53CB5ADEF}
+	EndGlobalSection
+EndGlobal
