@@ -10,26 +10,16 @@ using System.Windows.Forms;
 
 namespace Risk_CR
 {
-    public partial class Form1 : Form
+    public partial class CR_Risk : Form
     {
-        public Form1()
+        public CR_Risk()
         {
             InitializeComponent();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("¡Skibidi! Confirmado que tocaste el botón.");
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
 
-        }
-
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            Application.Exit();
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -42,9 +32,6 @@ namespace Risk_CR
             this.Close();
         }
 
-        private void toolTip1_Popup(object sender, PopupEventArgs e)
-        {
-
-        }
+        
     }
 }
