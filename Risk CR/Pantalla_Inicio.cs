@@ -21,7 +21,7 @@ namespace Risk_CR
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-           //pass
+           
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
@@ -41,6 +41,13 @@ namespace Risk_CR
         {
             MapaFormulario mapa = new MapaFormulario();
             mapa.Show();
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            config mapa = new config();
+            mapa.Show();
+            this.Hide();
         }
     }
 }
