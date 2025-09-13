@@ -11,7 +11,6 @@ namespace Risk_CR  // ← Quita el ".clases"
         public string Nombre { get; set; }
         public string Provincia { get; set; }
         public int Tropas { get; set; }
-        public object Ocupante { get; set; }
         public Button BotonAsociado { get; set; }
 
         // Agrega este constructor:
