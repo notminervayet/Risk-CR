@@ -36,5 +36,11 @@ namespace Risk_CR
             selva.PlayLooping();
 
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            MapaFormulario mapa = new MapaFormulario();
+            mapa.Show();
+        }
     }
 }
