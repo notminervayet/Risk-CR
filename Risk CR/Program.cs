@@ -16,6 +16,7 @@ namespace Risk_CR
         [STAThread]
         static void Main()
         {
+            //guagua
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
