@@ -19,11 +19,6 @@ namespace Risk_CR
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void pictureBox1_Click(object sender, EventArgs e)
         {
            
@@ -36,8 +31,9 @@ namespace Risk_CR
         private void Pantalla_Inicio_Load(object sender, EventArgs e)
         {
             string ruta = Path.Combine(Application.StartupPath, "sonido", "Selva.wav");
-            SoundPlayer player = new SoundPlayer(ruta);
-            player.Play();
+            SoundPlayer selva = new SoundPlayer(ruta);
+            selva.Play();
+            selva.PlayLooping();
 
         }
     }
