@@ -13,6 +13,7 @@ namespace Risk_CR
     public partial class MapaFormulario : Form
     {
         private PictureBox picMapa;
+
         public MapaFormulario()
         {
             InitializeComponent();
@@ -28,7 +29,7 @@ namespace Risk_CR
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.StartPosition = FormStartPosition.CenterScreen;
-            this.BackColor = Color.Black;
+            this.BackColor = Color.LightBlue; // ← FONDO CELESTE
         }
 
         private void InicializarMapa()
@@ -37,7 +38,7 @@ namespace Risk_CR
             picMapa.Dock = DockStyle.Fill;
             picMapa.SizeMode = PictureBoxSizeMode.Zoom;
 
-            // Ruta CORRECTA como tu ejemplo del sonido
+            // Ruta de la imagen
             string ruta = Path.Combine(Application.StartupPath, "imagenes", "MapaImagenPNG.png");
             picMapa.Image = Image.FromFile(ruta);
 

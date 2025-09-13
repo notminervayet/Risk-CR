@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="clases\Territorio.cs" />
     <Compile Include="Configuración.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -68,6 +69,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Configuración.resx">
       <DependentUpon>Configuración.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MapaFormulario.resx">
+      <DependentUpon>MapaFormulario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantalla_Inicio.resx">
       <DependentUpon>Pantalla_Inicio.cs</DependentUpon>
