@@ -36,5 +36,15 @@ namespace Risk_CR
         {
            
         }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void toolTip1_Popup(object sender, PopupEventArgs e)
+        {
+
+        }
     }
 }
