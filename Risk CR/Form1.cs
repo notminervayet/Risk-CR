@@ -29,12 +29,12 @@ namespace Risk_CR
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-
+            Application.Exit();
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-
+           
         }
     }
 }
