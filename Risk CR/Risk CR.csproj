@@ -102,9 +102,7 @@
     <Folder Include="red\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="imagenes\MapaImagenPNG.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="imagenes\MapaImagenPNG.png" />
     <Content Include="sonido\Selva.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
