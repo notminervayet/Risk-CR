@@ -31,7 +31,7 @@ namespace Risk_CR
             this.StartPosition = FormStartPosition.CenterScreen;
             this.BackColor = Color.LightBlue;
         }
-
+//guagua
         private void InicializarTerritorios()
         {
             territorios = new List<Territorio>();
