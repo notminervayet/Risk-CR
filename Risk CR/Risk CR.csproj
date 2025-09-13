@@ -47,33 +47,33 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="clases\Territorio.cs" />
-    <Compile Include="Configuración.cs">
+    <Compile Include="Formularios\Configuración.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Configuración.Designer.cs">
+    <Compile Include="Formularios\Configuración.Designer.cs">
       <DependentUpon>Configuración.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pantalla_Inicio.cs">
+    <Compile Include="Formularios\Pantalla_Inicio.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Pantalla_Inicio.Designer.cs">
+    <Compile Include="Formularios\Pantalla_Inicio.Designer.cs">
       <DependentUpon>Pantalla_Inicio.cs</DependentUpon>
     </Compile>
-    <Compile Include="MapaFormulario.cs">
+    <Compile Include="Formularios\MapaFormulario.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MapaFormulario.Designer.cs">
+    <Compile Include="Formularios\MapaFormulario.Designer.cs">
       <DependentUpon>MapaFormulario.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Configuración.resx">
+    <EmbeddedResource Include="Formularios\Configuración.resx">
       <DependentUpon>Configuración.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MapaFormulario.resx">
+    <EmbeddedResource Include="Formularios\MapaFormulario.resx">
       <DependentUpon>MapaFormulario.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pantalla_Inicio.resx">
+    <EmbeddedResource Include="Formularios\Pantalla_Inicio.resx">
       <DependentUpon>Pantalla_Inicio.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -98,7 +98,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="red\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="imagenes\MapaImagenPNG.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
