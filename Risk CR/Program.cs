@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-//como la de cartago hgggaggdgg
-//CACOTA 
-//CACA
+
 namespace Risk_CR
 {
     internal static class Program
@@ -16,11 +14,11 @@ namespace Risk_CR
         [STAThread]
         static void Main()
         {
-            //guagu skibidisdisidtoilet<
+            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
-            //jdhsgfjhg
+            
         }
     }
 }
