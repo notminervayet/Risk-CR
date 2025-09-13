@@ -87,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="imagenes\" />
+    <Folder Include="sonido\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
