@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 //como la de cartago hgggaggdgg
 //CACOTA 
-
+//CACA
 namespace Risk_CR
 {
     internal static class Program
