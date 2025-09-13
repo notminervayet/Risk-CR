@@ -34,7 +34,7 @@ namespace Risk_CR
         }
         private void Pantalla_Inicio_Load(object sender, EventArgs e)
         {
-            SoundPlayer player = new SoundPlayer(@"C:\Users\litzy\Documents\PROYECTOLINEYTHAN\musica\Selva.wav");
+            SoundPlayer player = new SoundPlayer("Selva.wav");
             player.Play();
         }
     }
