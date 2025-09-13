@@ -16,7 +16,7 @@ namespace Risk_CR
         [STAThread]
         static void Main()
         {
-            //guagu
+            //guagu skibidisdisidtoilet<
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
