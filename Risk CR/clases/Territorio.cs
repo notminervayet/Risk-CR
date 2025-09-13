@@ -11,10 +11,10 @@ namespace Risk_CR
         public int Id { get; set; }
         public string Nombre { get; set; }
         public string Provincia { get; set; }
-        public object Ocupante { get; set; } // Temporal: luego será Jugador
+        public object Ocupante { get; set; }
         public int Tropas { get; set; }
         public Button BotonAsociado { get; set; }
-        public List<Territorio> TerritoriosAdyacentes { get; set; } // ← NUEVA PROPIEDAD
+        public List<Territorio> TerritoriosAdyacentes { get; set; } 
 
         // Constructor
         public Territorio(int id, string nombre, string provincia)
@@ -22,13 +22,13 @@ namespace Risk_CR
             Id = id;
             Nombre = nombre;
             Provincia = provincia;
-            Tropas = 1; // Empieza con 1 tropa
-            Ocupante = null; // Neutral al inicio
+            Tropas = 0; 
+            Ocupante = null; 
             BotonAsociado = null;
-            TerritoriosAdyacentes = new List<Territorio>(); // ← INICIALIZAR LISTA
+            TerritoriosAdyacentes = new List<Territorio>(); 
         }
 
-        // Método para agregar territorio adyacente ← NUEVO MÉTODO
+       
         public void AgregarAdyacente(Territorio territorioAdyacente)
         {
             if (!TerritoriosAdyacentes.Contains(territorioAdyacente))
@@ -37,73 +37,72 @@ namespace Risk_CR
             }
         }
 
-        // Método para actualizar la apariencia visual del botón
+        
         public void ActualizarVisualmente()
         {
             if (BotonAsociado != null)
             {
-                // Actualizar texto con nombre y tropas
+                
                 BotonAsociado.Text = $"{Nombre}\n{Tropas}";
 
-                // Actualizar color según el ocupante
+              
                 if (Ocupante == null)
                 {
-                    BotonAsociado.BackColor = Color.LightGray; // Neutral
+                    BotonAsociado.BackColor = Color.LightGray; 
                 }
                 else
                 {
-                    // Cuando tengas la clase Jugador, aquí usarás:
-                    // BotonAsociado.BackColor = ((Jugador)Ocupante).Color;
-                    BotonAsociado.BackColor = Color.LightBlue; // Temporal
+                    
+                    
+                    BotonAsociado.BackColor = Color.LightBlue; 
                 }
 
-                // Mejorar apariencia visual
                 BotonAsociado.ForeColor = Color.Black;
                 BotonAsociado.Font = new Font("Arial", 8, FontStyle.Bold);
                 BotonAsociado.TextAlign = ContentAlignment.MiddleCenter;
             }
         }
 
-        // Método para agregar tropas
+        
         public void AgregarTropas(int cantidad)
         {
             Tropas += cantidad;
-            ActualizarVisualmente(); // Actualiza automáticamente el botón
+            ActualizarVisualmente(); 
         }
 
-        // Método para remover tropas
+        
         public void RemoverTropas(int cantidad)
         {
-            Tropas = Math.Max(0, Tropas - cantidad); // No menos de 0
+            Tropas = Math.Max(0, Tropas - cantidad);
             ActualizarVisualmente();
         }
 
-        // Método para cambiar ocupante
+        
         public void CambiarOcupante(object nuevoOcupante)
         {
             Ocupante = nuevoOcupante;
             ActualizarVisualmente();
         }
 
-        // Método para verificar si puede atacar (mínimo 2 tropas)
+        
         public bool PuedeAtacar()
         {
             return Tropas >= 2;
         }
 
-        // Método para verificar si es adyacente a otro territorio
+      
         public bool EsAdyacente(Territorio otroTerritorio)
         {
             return TerritoriosAdyacentes.Contains(otroTerritorio);
         }
 
-        // Override de ToString para debugging
+       
         public override string ToString()
         {
             return $"#{Id} {Nombre} ({Provincia}) - Tropas: {Tropas} - Adyacentes: {TerritoriosAdyacentes.Count}";
         }
 
-        // Método para obtener nombres de adyacentes (útil para debugging)
+      
         public string ObtenerNombresAdyacentes()
         {
             List<string> nombres = new List<string>();
