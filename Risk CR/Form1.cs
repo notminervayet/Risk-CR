@@ -16,5 +16,10 @@ namespace Risk_CR
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("¡Skibidi! Confirmado que tocaste el botón.");
+        }
     }
 }
