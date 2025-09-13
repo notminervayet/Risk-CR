@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+//como la de cartago
 namespace Risk_CR
 {
     internal static class Program
