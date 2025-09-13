@@ -89,7 +89,9 @@
     <Folder Include="imagenes\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="sonido\Selva.wav" />
+    <Content Include="sonido\Selva.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

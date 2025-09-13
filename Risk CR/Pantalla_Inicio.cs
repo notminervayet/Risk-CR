@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Media;
 
 namespace Risk_CR
 {
@@ -34,8 +35,10 @@ namespace Risk_CR
         }
         private void Pantalla_Inicio_Load(object sender, EventArgs e)
         {
-            SoundPlayer player = new SoundPlayer("Selva.wav");
+            string ruta = Path.Combine(Application.StartupPath, "sonido", "Selva.wav");
+            SoundPlayer player = new SoundPlayer(ruta);
             player.Play();
+
         }
     }
 }
