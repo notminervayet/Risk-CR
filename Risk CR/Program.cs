@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 //como la de cartago hgggaggdgg
 //CACOTA 
+
 namespace Risk_CR
 {
     internal static class Program
@@ -15,6 +16,7 @@ namespace Risk_CR
         [STAThread]
         static void Main()
         {
+            Console.WriteLine("guagua");
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
