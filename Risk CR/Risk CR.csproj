@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="clases\Territorio.cs" />
+    <Compile Include="Comunicación\Comu.cs" />
     <Compile Include="Formularios\Configuración.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -98,12 +99,10 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="red\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="imagenes\MapaImagenPNG.png" />
-    <Content Include="sonido\Selva.wav">
+    <Content Include="Formularios\imagenes\MapaImagenPNG.png" />
+    <Content Include="Formularios\sonido\Selva.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

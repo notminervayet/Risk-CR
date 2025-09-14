@@ -30,7 +30,7 @@ namespace Risk_CR
         }
         private void Pantalla_Inicio_Load(object sender, EventArgs e)
         {
-            string ruta = Path.Combine(Application.StartupPath, "sonido", "Selva.wav");
+            string ruta = Path.Combine(Application.StartupPath,"Formularios", "sonido", "Selva.wav");
             SoundPlayer selva = new SoundPlayer(ruta);
             selva.Play();
             selva.PlayLooping();
