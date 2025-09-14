@@ -240,5 +240,10 @@ namespace Risk_CR
                 }
             }
         }
+
+        private void MapaFormulario_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
