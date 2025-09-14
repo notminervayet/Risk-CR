@@ -154,23 +154,55 @@ namespace Risk_CR
             Dictionary<int, Point> posiciones = new Dictionary<int, Point>()
             {
                 // San José
-                {1, new Point(400, 300)},  // Central
-                {2, new Point(350, 250)},  // Escazú
-                {3, new Point(450, 350)},  // Desamparados
-                {4, new Point(380, 400)},  // Puriscal
-                {5, new Point(320, 450)},  // Tarrazú
-                {6, new Point(420, 380)},  // Aserrí
-                {7, new Point(480, 320)},  // Mora
+                {1, new Point(400, 300)}, 
+                {2, new Point(350, 250)},  
+                {3, new Point(450, 350)},  
+                {4, new Point(380, 400)}, 
+                {5, new Point(320, 450)}, 
+                {6, new Point(420, 380)},  
+                {7, new Point(480, 320)},  
                 
-                // Alajuela
-                {8, new Point(300, 200)},  // Alajuela
-                {9, new Point(250, 150)},  // San Ramón
-                {10, new Point(350, 180)}, // Grecia
-                {11, new Point(280, 250)}, // San Carlos
-                {12, new Point(220, 300)}, // Upala
-                {13, new Point(180, 350)}, // Los Chiles
-                {14, new Point(240, 400)}, // Guatuso
-                
+              
+                {8, new Point(300, 200)}, 
+                {9, new Point(250, 150)},
+                {10, new Point(240, 400)},
+                {11, new Point(280, 250)}, 
+                {12, new Point(220, 300)}, 
+                {13, new Point(180, 350)}, 
+                {14, new Point(240, 400)}, 
+
+                {15, new Point(240, 450)},
+                {16, new Point(240, 500)},
+                {17, new Point(240, 550)},
+                {18, new Point(240, 600)},
+                {19, new Point(240, 400)},
+                {20, new Point(240, 400)},
+                {21, new Point(240, 400)},
+
+                {22, new Point(240, 400)},
+                {23, new Point(240, 400)},
+                {24, new Point(240, 400)},
+                {25, new Point(240, 400)},
+                {26, new Point(240, 400)},
+                {27, new Point(240, 400)},
+                {28, new Point(240, 400)},
+
+                {29, new Point(240, 400)},
+                {30, new Point(240, 400)},
+                {31, new Point(240, 400)},
+                {32, new Point(240, 400)},
+                {33, new Point(240, 400)},
+                {34, new Point(240, 400)},
+                {35, new Point(240, 400)},
+
+                {36, new Point(240, 400)},
+                {37, new Point(240, 400)},
+                {38, new Point(240, 400)},
+                {39, new Point(240, 400)},
+                {40, new Point(240, 400)},
+                {41, new Point(240, 400)},
+                {42, new Point(240, 400)},
+
                 // TÚ agregarás las posiciones para los 42 territorios
                 // basado en tu mapa de Costa Rica
             };
