@@ -10,8 +10,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace Risk_CR
 {
+    
     public partial class CR_Risk : Form
     {
 
@@ -50,9 +52,8 @@ namespace Risk_CR
         private void pictureBox3_Click_1(object sender, EventArgs e)
         {
             
-            config mapa = new config();
-            mapa.Show();
-            this.Hide();
+            
+
 
         }
     }
