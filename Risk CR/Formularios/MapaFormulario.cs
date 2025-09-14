@@ -192,22 +192,22 @@ namespace Risk_CR
                 {28, new Point(717, 206)}, // Yugo
 
                 // Guanacaste
-                {29, new Point(200, 200)}, // Samara
-                {30, new Point(150, 250)}, // Nicoya
-                {31, new Point(100, 300)}, // Hermosa
-                {32, new Point(150, 350)}, // Conchal
-                {33, new Point(200, 400)}, // Avellana
-                {34, new Point(250, 450)}, // Bejuco
-                {35, new Point(300, 500)}, // Coyote
+                {29, new Point(272, 57)}, // Samara
+                {30, new Point(350, 80)}, // Nicoya
+                {31, new Point(292, 127)}, // Hermosa
+                {32, new Point(355, 160)}, // Conchal
+                {33, new Point(275, 220)}, // Avellana
+                {34, new Point(395, 200)}, // Bejuco
+                {35, new Point(355, 280)}, // Coyote
 
                 // Puntarenas
-                {36, new Point(300, 600)}, // Dominical
-                {37, new Point(350, 650)}, // Parrita
-                {38, new Point(400, 700)}, // El Puerto
-                {39, new Point(450, 650)}, // Jaco
-                {40, new Point(500, 600)}, // Esparza
-                {41, new Point(550, 550)}, // Quepos
-                {42, new Point(600, 500)}  // Golfito
+                {36, new Point(766, 354)}, // Dominical
+                {37, new Point(760, 410)}, // Parrita
+                {38, new Point(700, 455)}, // El Puerto
+                {39, new Point(815, 455)}, // Jaco
+                {40, new Point(760, 462)}, // Esparza
+                {41, new Point(775, 530)}, // Quepos
+                {42, new Point(675, 530)}  // Golfitoo
             };
 
             foreach (Territorio territorio in territorios)
