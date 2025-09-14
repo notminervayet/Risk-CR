@@ -39,7 +39,7 @@ namespace Risk_CR
           
             territorios.Add(new Territorio(1, "UCR", "San José"));
             territorios.Add(new Territorio(2, "ParqueDiv", "San José"));
-            territorios.Add(new Territorio(3, "Caribeños", "San José"));
+            territorios.Add(new Territorio(3, "desampa", "San José"));
             territorios.Add(new Territorio(4, "Empresarios Unidos", "San José"));
             territorios.Add(new Territorio(5, "Plazadel sol", "San José"));
             territorios.Add(new Territorio(6, "Lacali", "San José"));
@@ -156,22 +156,22 @@ namespace Risk_CR
             Dictionary<int, Point> posiciones = new Dictionary<int, Point>()
             {
                 // San José
-                {1, new Point(500, 300)},  // UCR
-                {2, new Point(450, 250)},  // ParqueDiv
-                {3, new Point(550, 350)},  // Caribeños
-                {4, new Point(480, 400)},  // Empresarios Unidos
-                {5, new Point(420, 450)},  // Plazadel sol
-                {6, new Point(520, 380)},  // Lacali
-                {7, new Point(580, 320)},  // AvenidaC
+                {1, new Point(547, 285)},  // UCR
+                {2, new Point(500, 300)},  // ParqueDiv
+                {3, new Point(540, 340)},  // Desampa
+                {4, new Point(600, 350)},  // Empresarios Unidos
+                {5, new Point(610, 300)},  // Plazadel sol
+                {6, new Point(585, 235)},  // Lacali
+                {7, new Point(640, 410)},  // AvenidaC
                 
                 // Alajuela
-                {8, new Point(400, 200)},  // PiedadesNorte
-                {9, new Point(350, 150)},  // SanRamón
-                {10, new Point(450, 180)}, // CasaEythan
-                {11, new Point(300, 250)}, // SanCarlos
-                {12, new Point(250, 300)}, // SuperMario
-                {13, new Point(200, 350)}, // Bolivar
-                {14, new Point(350, 400)}, // Palmares
+                {8, new Point(455, 265)},  // PiedadesNorte
+                {9, new Point(537, 245)},  // SanRamón
+                {10, new Point(465, 200)}, // CasaEythan
+                {11, new Point(410, 150)}, // SanCarlos
+                {12, new Point(415, 105)}, // SuperMario
+                {13, new Point(475, 100)}, // Bolivar
+                {14, new Point(525, 125)}, // Palmares
 
                 // Cartago
                 {15, new Point(550, 450)}, // TEC
@@ -182,7 +182,7 @@ namespace Risk_CR
                 {20, new Point(600, 650)}, // ApartaLitzy
                 {21, new Point(650, 700)}, // Casacampus
 
-                // Heredia
+                // limon
                 {22, new Point(400, 300)}, // Puerto Viejo
                 {23, new Point(350, 350)}, // Expo
                 {24, new Point(300, 400)}, // Bataan
