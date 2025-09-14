@@ -159,7 +159,7 @@ namespace Risk_CR
                 {1, new Point(547, 285)},  // UCR
                 {2, new Point(500, 300)},  // ParqueDiv
                 {3, new Point(540, 340)},  // Desampa
-                {4, new Point(600, 350)},  // Empresarios Unidos
+                {4, new Point(600, 357)},  // Empresarios Unidos
                 {5, new Point(610, 300)},  // Plazadel sol
                 {6, new Point(585, 235)},  // Lacali
                 {7, new Point(640, 410)},  // AvenidaC
@@ -174,22 +174,22 @@ namespace Risk_CR
                 {14, new Point(525, 125)}, // Palmares
 
                 // Cartago
-                {15, new Point(550, 450)}, // TEC
-                {16, new Point(600, 500)}, // LasRuinas
-                {17, new Point(650, 550)}, // LaBasilica
-                {18, new Point(700, 600)}, // Irazu
-                {19, new Point(550, 600)}, // ApartaEythan
-                {20, new Point(600, 650)}, // ApartaLitzy
-                {21, new Point(650, 700)}, // Casacampus
+                {15, new Point(650, 250)}, // TEC
+                {16, new Point(690, 300)}, // LasRuinas
+                {17, new Point(655, 350)}, // LaBasilica
+                {18, new Point(730, 250)}, // Irazu
+                {19, new Point(800, 300)}, // ApartaEythan
+                {20, new Point(730, 320)}, // ApartaLitzy
+                {21, new Point(695, 415)}, // Casacampus
 
                 // limon
-                {22, new Point(400, 300)}, // Puerto Viejo
-                {23, new Point(350, 350)}, // Expo
-                {24, new Point(300, 400)}, // Bataan
-                {25, new Point(250, 450)}, // CasadeLitzy
-                {26, new Point(200, 500)}, // LaArgentina
-                {27, new Point(350, 550)}, // Cariari
-                {28, new Point(400, 600)}, // Yugo
+                {22, new Point(590, 127)}, // Puerto Viejo
+                {23, new Point(662, 123)}, // Expo
+                {24, new Point(590, 167)}, // Bataan
+                {25, new Point(670, 166)}, // CasadeLitzy
+                {26, new Point(585, 202)}, // LaArgentina
+                {27, new Point(650, 202)}, // Cariari
+                {28, new Point(717, 206)}, // Yugo
 
                 // Guanacaste
                 {29, new Point(200, 200)}, // Samara
