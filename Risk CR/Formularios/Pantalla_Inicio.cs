@@ -14,6 +14,9 @@ namespace Risk_CR
 {
     public partial class CR_Risk : Form
     {
+
+        
+
         public CR_Risk()
         {
             InitializeComponent();
@@ -28,6 +31,7 @@ namespace Risk_CR
         {
             this.Close();
         }
+        
         private void Pantalla_Inicio_Load(object sender, EventArgs e)
         {
             string ruta = Path.Combine(Application.StartupPath,"Formularios", "sonido", "Selva.wav");
@@ -43,18 +47,13 @@ namespace Risk_CR
             mapa.Show();
         }
 
-        private void pictureBox3_Click(object sender, EventArgs e)
-        {
-            config mapa = new config();
-            mapa.Show();
-            this.Hide();
-        }
-
         private void pictureBox3_Click_1(object sender, EventArgs e)
         {
+            
             config mapa = new config();
             mapa.Show();
             this.Hide();
+
         }
     }
 }
