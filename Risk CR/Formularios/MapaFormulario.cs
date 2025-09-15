@@ -29,7 +29,9 @@ namespace Risk_CR
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.StartPosition = FormStartPosition.CenterScreen;
-            this.BackColor = Color.LightBlue;
+            string rutaFondo = Path.Combine(Application.StartupPath, "imagenes", "fondo.png");
+            this.BackgroundImage = Image.FromFile(rutaFondo);
+            this.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         private void InicializarTerritorios()

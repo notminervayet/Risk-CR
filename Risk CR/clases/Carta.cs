@@ -6,6 +6,13 @@ using System.Threading.Tasks;
 
 namespace Risk_CR.clases
 {
+    public enum TipoUnidad
+    {
+        Infanteria,
+        Caballeria,
+        Artilleria
+    }
+
     public class Carta
     {
         public int Infanteria { get; set; }
