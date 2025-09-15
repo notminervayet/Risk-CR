@@ -125,28 +125,28 @@ namespace Risk_CR
 
             ConectarAdyacentes(22, new int[] { 14, 24, 23, 25 });
             ConectarAdyacentes(23, new int[] { 22, 25 });
-            ConectarAdyacentes(24, new int[] { 14, 7 });
-            ConectarAdyacentes(25, new int[] { 1, 7 });
-            ConectarAdyacentes(26, new int[] { 1, 7 });
-            ConectarAdyacentes(27, new int[] { 1, 7 });
-            ConectarAdyacentes(28, new int[] { 1, 7 });
+            ConectarAdyacentes(24, new int[] { 14, 22, 23, 25, 27, 26, 9 });
+            ConectarAdyacentes(25, new int[] { 22, 23, 24, 27, 28 });
+            ConectarAdyacentes(26, new int[] { 9, 6, 24, 15 });
+            ConectarAdyacentes(27, new int[] { 24, 25, 28, 15 });
+            ConectarAdyacentes(28, new int[] { 15, 18, 25, 27 });
 
 
-            ConectarAdyacentes(29, new int[] { 1, 7 });
-            ConectarAdyacentes(30, new int[] { 1, 7 });
-            ConectarAdyacentes(31, new int[] { 1, 7 });
-            ConectarAdyacentes(32, new int[] { 1, 7 });
-            ConectarAdyacentes(33, new int[] { 1, 7 });
-            ConectarAdyacentes(34, new int[] { 1, 7 });
-            ConectarAdyacentes(35, new int[] { 1, 7 });
+            ConectarAdyacentes(29, new int[] { 30, 31 });
+            ConectarAdyacentes(30, new int[] { 12, 11, 29, 31, 32 });
+            ConectarAdyacentes(31, new int[] { 29, 30, 32, 33 });
+            ConectarAdyacentes(32, new int[] { 30, 31, 33, 34, 11 });
+            ConectarAdyacentes(33, new int[] { 31, 32, 34, 35 });
+            ConectarAdyacentes(34, new int[] { 11, 10, 8, 32, 33, 35 });
+            ConectarAdyacentes(35, new int[] { 34, 33 });
 
-            ConectarAdyacentes(36, new int[] { 1, 7 });
-            ConectarAdyacentes(37, new int[] { 1, 7 });
-            ConectarAdyacentes(38, new int[] { 1, 7 });
-            ConectarAdyacentes(39, new int[] { 1, 7 });
-            ConectarAdyacentes(40, new int[] { 1, 7 });
-            ConectarAdyacentes(41, new int[] { 1, 7 });
-            ConectarAdyacentes(42, new int[] { 1, 7 });
+            ConectarAdyacentes(36, new int[] { 19, 20, 37 });
+            ConectarAdyacentes(37, new int[] { 36, 20, 21, 38, 40, 39 });
+            ConectarAdyacentes(38, new int[] { 7, 21, 27, 40, 41, 42 });
+            ConectarAdyacentes(39, new int[] { 37, 40 });
+            ConectarAdyacentes(40, new int[] { 37, 39, 38, 41 });
+            ConectarAdyacentes(41, new int[] { 40, 38 });
+            ConectarAdyacentes(42, new int[] { 38 });
 
 
 
