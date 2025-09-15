@@ -29,9 +29,7 @@ namespace Risk_CR
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.StartPosition = FormStartPosition.CenterScreen;
-            string rutaFondo = Path.Combine(Application.StartupPath, "imagenes", "fondo.png");
-            this.BackgroundImage = Image.FromFile(rutaFondo);
-            this.BackgroundImageLayout = ImageLayout.Stretch;
+            
         }
 
         private void InicializarTerritorios()
@@ -144,6 +142,10 @@ namespace Risk_CR
             picMapa = new PictureBox();
             picMapa.Dock = DockStyle.Fill;
             picMapa.SizeMode = PictureBoxSizeMode.Zoom;
+
+            string rutaTile = Path.Combine(Application.StartupPath, "imagenes", "majestad2.png");
+            picMapa.BackgroundImage = Image.FromFile(rutaTile);
+            picMapa.BackgroundImageLayout = ImageLayout.Tile;
 
             string ruta = Path.Combine(Application.StartupPath, "imagenes", "MapaImagenPNG.png");
             picMapa.Image = Image.FromFile(ruta);

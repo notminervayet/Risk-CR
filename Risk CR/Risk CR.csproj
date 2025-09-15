@@ -49,6 +49,7 @@
     <Compile Include="clases\Carta.cs" />
     <Compile Include="clases\Estados.cs" />
     <Compile Include="clases\Jugador.cs" />
+    <Compile Include="clases\Manejo_juego.cs" />
     <Compile Include="clases\Territorio.cs" />
     <Compile Include="Comunicación\Comu.cs" />
     <Compile Include="Formularios\Pantalla_Inicio.cs">
@@ -95,7 +96,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="Formularios\imagenes\majestad2.png" />
     <Content Include="Formularios\imagenes\MapaImagenPNG.png" />
+    <Content Include="Formularios\imagenes\rayas.png" />
     <Content Include="Formularios\sonido\Selva.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Risk_CR.clases
 {
+    // Tipo de carta
     public enum TipoUnidad
     {
         Infanteria,
@@ -15,16 +16,19 @@ namespace Risk_CR.clases
 
     public class Carta
     {
-        public int Infanteria { get; set; }
-        public int Caballeria { get; set; }
-        public int Artilleria { get; set; }
+        public TipoUnidad Unidad { get; private set; }
+        public string RutaImagen { get; private set; } 
 
-        public Carta(int infanteria, int caballeria, int artilleria)
+        public Carta(TipoUnidad unidad, string rutaImagen)
         {
-            Infanteria = infanteria;
-            Caballeria = caballeria;
-            Artilleria = artilleria;
+            Unidad = unidad;
+            RutaImagen = rutaImagen;
         }
-
+        //muestra el tipo de unidad
+        public override string ToString()
+        {
+            return Unidad.ToString(); 
+        }
     }
+
 }

@@ -32,7 +32,7 @@ namespace Risk_CR
 
        
         public void AgregarAdyacente(Territorio territorioAdyacente)
-        {
+        {   // revisa que no haya duplicados
             if (!TerritoriosAdyacentes.Contains(territorioAdyacente))
             {
                 TerritoriosAdyacentes.Add(territorioAdyacente);
@@ -104,7 +104,7 @@ namespace Risk_CR
             return $"#{Id} {Nombre} ({Provincia}) - Tropas: {Tropas} - Adyacentes: {TerritoriosAdyacentes.Count}";
         }
 
-      
+        // nombres de los territorios adyacentes
         public string ObtenerNombresAdyacentes()
         {
             List<string> nombres = new List<string>();
