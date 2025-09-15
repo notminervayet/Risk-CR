@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="clases\Carta.cs" />
     <Compile Include="clases\Estados.cs" />
     <Compile Include="clases\Jugador.cs" />
     <Compile Include="clases\Territorio.cs" />

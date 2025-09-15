@@ -15,6 +15,8 @@ namespace Risk_CR
         public int Tropas { get; set; }
         public Button BotonAsociado { get; set; }
         public List<Territorio> TerritoriosAdyacentes { get; set; } 
+        
+
 
         // Constructor
         public Territorio(int id, string nombre, string provincia)
