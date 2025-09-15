@@ -41,7 +41,7 @@ namespace Risk_CR
             territorios.Add(new Territorio(2, "ParqueDiv", "San José"));
             territorios.Add(new Territorio(3, "desampa", "San José"));
             territorios.Add(new Territorio(4, "Empresarios Unidos", "San José"));
-            territorios.Add(new Territorio(5, "Plazadel sol", "San José"));
+            territorios.Add(new Territorio(5, "Plazadelsol", "San José"));
             territorios.Add(new Territorio(6, "Lacali", "San José"));
             territorios.Add(new Territorio(7, "AvenidaC", "San José"));
 
@@ -84,7 +84,7 @@ namespace Risk_CR
             
             territorios.Add(new Territorio(36, "Dominical", "Puntarenas"));
             territorios.Add(new Territorio(37, "Parrita", "Puntarenas"));
-            territorios.Add(new Territorio(38, "El Puerto", "Puntarenas"));
+            territorios.Add(new Territorio(38, "ElPuerto", "Puntarenas"));
             territorios.Add(new Territorio(39, "Jaco", "Puntarenas"));
             territorios.Add(new Territorio(40, "Esparza", "Puntarenas"));
             territorios.Add(new Territorio(41, "Quepos", "Puntarenas"));
@@ -93,23 +93,64 @@ namespace Risk_CR
 
         private void EstablecerAdyacencias()
         {
-           
 
-            // San José
-            ConectarAdyacentes(1, new int[] { 2, 3, 4 });  
-            ConectarAdyacentes(2, new int[] { 1, 5 });     
-            ConectarAdyacentes(3, new int[] { 1, 6 });    
-            ConectarAdyacentes(4, new int[] { 1, 7 });     
+            //San jose
+            ConectarAdyacentes(1, new int[] { 2, 3, 4, 5, 6, 9 });//
+            ConectarAdyacentes(2, new int[] { 1, 3, 8, 9 });//
+            ConectarAdyacentes(3, new int[] { 8, 2, 1, 5, 4 });//
+            ConectarAdyacentes(4, new int[] { 3, 5, 17, 7 });
+            ConectarAdyacentes(5, new int[] { 1, 3, 4, 17, 16, 15, 6 });
+            ConectarAdyacentes(6, new int[] { 1, 5, 15, 9, 26 });
+            ConectarAdyacentes(7, new int[] { 4, 17, 21, 38 });
 
-            // Alajuela
-            ConectarAdyacentes(8, new int[] { 9, 10 });   
-            ConectarAdyacentes(9, new int[] { 8, 11 });    
 
-            // CONEXIONES ENTRE PROVINCIAS - EJEMPLOS:
-            ConectarAdyacentes(1, new int[] { 8 });       
-            ConectarAdyacentes(7, new int[] { 22 });       
-            ConectarAdyacentes(15, new int[] { 1 });       
-         
+            //guanacaste
+            ConectarAdyacentes(8, new int[] { 2, 9, 10, 34 });
+            ConectarAdyacentes(9, new int[] { 2, 1, 6, 26, 24, 10, 14, 8 });
+            ConectarAdyacentes(10, new int[] { 8, 9, 14, 13, 12, 11, 34 });
+            ConectarAdyacentes(11, new int[] { 30, 32, 34, 10, 12 });
+            ConectarAdyacentes(12, new int[] { 11, 10, 13, 30 });
+            ConectarAdyacentes(13, new int[] { 12, 10, 14 });
+            ConectarAdyacentes(14, new int[] { 13, 14, 9, 24, 22 });
+
+
+            ConectarAdyacentes(15, new int[] { 6, 5, 16, 18, 28, 27, 24, 26 });
+            ConectarAdyacentes(16, new int[] { 5, 17, 20, 18, 15 });
+            ConectarAdyacentes(17, new int[] { 5, 4, 7, 21, 20, 16 });
+            ConectarAdyacentes(18, new int[] { 28, 15, 16, 20, 19, });
+            ConectarAdyacentes(19, new int[] { 18, 20, 36 });
+            ConectarAdyacentes(20, new int[] { 16, 17, 18, 19, 21, 36, 37 });
+            ConectarAdyacentes(21, new int[] { 7, 17, 20, 37, 38 });
+
+
+            ConectarAdyacentes(22, new int[] { 14, 24, 23, 25 });
+            ConectarAdyacentes(23, new int[] { 22, 25 });
+            ConectarAdyacentes(24, new int[] { 14, 7 });
+            ConectarAdyacentes(25, new int[] { 1, 7 });
+            ConectarAdyacentes(26, new int[] { 1, 7 });
+            ConectarAdyacentes(27, new int[] { 1, 7 });
+            ConectarAdyacentes(28, new int[] { 1, 7 });
+
+
+            ConectarAdyacentes(29, new int[] { 1, 7 });
+            ConectarAdyacentes(30, new int[] { 1, 7 });
+            ConectarAdyacentes(31, new int[] { 1, 7 });
+            ConectarAdyacentes(32, new int[] { 1, 7 });
+            ConectarAdyacentes(33, new int[] { 1, 7 });
+            ConectarAdyacentes(34, new int[] { 1, 7 });
+            ConectarAdyacentes(35, new int[] { 1, 7 });
+
+            ConectarAdyacentes(36, new int[] { 1, 7 });
+            ConectarAdyacentes(37, new int[] { 1, 7 });
+            ConectarAdyacentes(38, new int[] { 1, 7 });
+            ConectarAdyacentes(39, new int[] { 1, 7 });
+            ConectarAdyacentes(40, new int[] { 1, 7 });
+            ConectarAdyacentes(41, new int[] { 1, 7 });
+            ConectarAdyacentes(42, new int[] { 1, 7 });
+
+
+
+
         }
 
         
