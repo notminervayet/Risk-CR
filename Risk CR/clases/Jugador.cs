@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
-namespace Risk_CR.clases
+namespace Risk_CR
 {
     public class Jugador
     {
