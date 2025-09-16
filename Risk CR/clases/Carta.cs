@@ -4,31 +4,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Risk_CR.clases
+namespace Risk_CR
 {
-    // Tipo de carta
-    public enum TipoUnidad
+    public enum TipoCarta
     {
         Infanteria,
         Caballeria,
-        Artilleria
+        Canon
     }
 
     public class Carta
     {
-        public TipoUnidad Unidad { get; private set; }
-        public string RutaImagen { get; private set; } 
+        public string Territorio { get; set; }
+        public TipoCarta Tipo { get; set; }
 
-        public Carta(TipoUnidad unidad, string rutaImagen)
+        public Carta(string territorio, TipoCarta tipo)
         {
-            Unidad = unidad;
-            RutaImagen = rutaImagen;
+            Territorio = territorio;
+            Tipo = tipo;
         }
-        //muestra el tipo de unidad
-        public override string ToString()
-        {
-            return Unidad.ToString(); 
-        }
+
+       
     }
-
 }
