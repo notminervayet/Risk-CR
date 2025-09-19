@@ -1,6 +1,4 @@
-﻿using Risk_CR.clases;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -17,9 +15,8 @@ namespace Risk_CR
         public int Tropas { get; set; }
         public bool TieneCarta { get; set; }
         public Button BotonAsociado { get; set; }
-        public List<Territorio> TerritoriosAdyacentes { get; set; }
+        public ListaGod<Territorio> TerritoriosAdyacentes { get; set; } 
 
-   
         public Territorio(int id, string nombre, string provincia)
         {
             Id = id;
@@ -29,15 +26,14 @@ namespace Risk_CR
             Ocupante = null;
             BotonAsociado = null;
             TieneCarta = true;
-            TerritoriosAdyacentes = new List<Territorio>();
+            TerritoriosAdyacentes = new ListaGod<Territorio>();
         }
 
         public void AgregarAdyacente(Territorio territorioAdyacente)
         {
-            
-            if (!TerritoriosAdyacentes.Contains(territorioAdyacente))
+            if (!TerritoriosAdyacentes.Contiene(territorioAdyacente)) 
             {
-                TerritoriosAdyacentes.Add(territorioAdyacente);
+                TerritoriosAdyacentes.Agregar(territorioAdyacente); 
             }
         }
 
@@ -87,7 +83,7 @@ namespace Risk_CR
 
         public bool EsAdyacente(Territorio otroTerritorio)
         {
-            return TerritoriosAdyacentes.Contains(otroTerritorio);
+            return TerritoriosAdyacentes.Contiene(otroTerritorio);
         }
 
         public override string ToString()
@@ -97,12 +93,13 @@ namespace Risk_CR
 
         public string ObtenerNombresAdyacentes()
         {
-            List<string> nombres = new List<string>();
-            foreach (Territorio adyacente in TerritoriosAdyacentes)
+            ListaGod<string> nombres = new ListaGod<string>(); 
+            for (int i = 0; i < TerritoriosAdyacentes.Count; i++) 
             {
-                nombres.Add(adyacente.Nombre);
+                Territorio adyacente = TerritoriosAdyacentes.Obtener(i); 
+                nombres.Agregar(adyacente.Nombre); 
             }
-            return string.Join(", ", nombres);
+            return string.Join(", ", nombres.ConvertirAArray());
         }
 
         public Carta ReclamarCarta()
@@ -110,14 +107,9 @@ namespace Risk_CR
             if (TieneCarta)
             {
                 TieneCarta = false;
-
-             
                 TipoCarta tipo = (TipoCarta)rnd.Next(0, 3);
-
                 return new Carta(Nombre, tipo);
             }
-
-         
             return null;
         }
     }
