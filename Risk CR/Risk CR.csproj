@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="clases\Carta.cs" />
+    <Compile Include="clases\ListaGod.cs" />
     <Compile Include="clases\Dado.cs" />
     <Compile Include="clases\Estados.cs" />
     <Compile Include="clases\Jugador.cs" />
