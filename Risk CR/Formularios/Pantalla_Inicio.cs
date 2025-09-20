@@ -9,6 +9,8 @@ using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Risk_CR.Formularios;
+
 
 
 namespace Risk_CR
@@ -43,20 +45,16 @@ namespace Risk_CR
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            MapaFormulario mapa = new MapaFormulario();
-            mapa.Show();
-        }
-
         private void pictureBox3_Click_1(object sender, EventArgs e)
         {
-            Acomodo mapa = new Acomodo();
-            mapa.Show(); // Abre el formulario sin bloquear el actual
+            this.Hide();
+            Acomodo pantalla = new Acomodo();
+            pantalla.ShowDialog();
+            this.Show();
         }
-            
 
 
-        }
+
     }
 }
+

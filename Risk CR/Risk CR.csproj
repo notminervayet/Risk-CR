@@ -54,6 +54,12 @@
     <Compile Include="clases\Manejo_juego.cs" />
     <Compile Include="clases\Territorio.cs" />
     <Compile Include="Comunicación\Comu.cs" />
+    <Compile Include="Formularios\Acomodo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Acomodo.Designer.cs">
+      <DependentUpon>Acomodo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Formularios\Pantalla_Inicio.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -68,6 +74,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Formularios\Acomodo.resx">
+      <DependentUpon>Acomodo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\MapaFormulario.resx">
       <DependentUpon>MapaFormulario.cs</DependentUpon>
     </EmbeddedResource>
