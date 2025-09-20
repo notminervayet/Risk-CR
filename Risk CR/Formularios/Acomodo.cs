@@ -27,7 +27,16 @@ namespace Risk_CR.Formularios
             this.Close();
         }
 
-        private void pictureBox2_Click(object sender, EventArgs e)
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+       
+        
+
+        private void pictureBoxPlay_Click(object sender, EventArgs e)
         {
             this.Hide();
             MapaFormulario mapa = new MapaFormulario();
