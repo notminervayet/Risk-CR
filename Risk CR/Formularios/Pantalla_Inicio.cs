@@ -51,7 +51,9 @@ namespace Risk_CR
 
         private void pictureBox3_Click_1(object sender, EventArgs e)
         {
-            
+            Acomodo mapa = new Acomodo();
+            mapa.Show(); // Abre el formulario sin bloquear el actual
+        }
             
 
 
