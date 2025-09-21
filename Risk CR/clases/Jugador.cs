@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Risk_CR
+namespace Risk_CR.Jugadores
 {
     public class Jugador
     {

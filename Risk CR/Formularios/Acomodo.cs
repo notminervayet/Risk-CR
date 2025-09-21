@@ -53,10 +53,10 @@ namespace Risk_CR.Formularios
         {
             string nombre1 = textBox1.Text.Trim();
             string nombre2 = textBox2.Text.Trim();
-       
+
             string color1 = comboBox1.SelectedItem?.ToString();
             string color2 = comboBox2.SelectedItem?.ToString();
-        
+
             Jugador jugador1 = new Jugador ( nombre1, color1 );
             Jugador jugador2 = new Jugador ( nombre2,color2 );
             Jugador ejercito_neutral= new Jugador("Ejercito Neutral", "Gris");
@@ -136,8 +136,8 @@ namespace Risk_CR.Formularios
                 else
                 {
                     labelad.Text = "";
-    }
-}
+                }
+            }
 
             ValidarAmbos();
         }

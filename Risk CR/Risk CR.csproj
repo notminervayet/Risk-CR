@@ -47,14 +47,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="clases\Carta.cs" />
-    <Compile Include="clases\Juego.cs" />
+    <Compile Include="clases\ColaGod.cs" />
     <Compile Include="clases\ListaGod.cs" />
     <Compile Include="clases\Dado.cs" />
     <Compile Include="clases\Estados.cs" />
     <Compile Include="clases\Jugador.cs" />
-    <Compile Include="clases\Manejo_juego.cs" />
     <Compile Include="clases\Territorio.cs" />
-    <Compile Include="Comunicación\Comu.cs" />
     <Compile Include="Formularios\Acomodo.cs">
       <SubType>Form</SubType>
     </Compile>

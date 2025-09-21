@@ -17,10 +17,7 @@ namespace Risk_CR
             cantidad = 0;
         }
 
-        public int Count
-        {
-            get { return cantidad; }
-        }
+        public int Count => cantidad;
 
         public T Obtener(int index)
         {
@@ -43,12 +40,16 @@ namespace Risk_CR
                 capacidad *= 2;
                 T[] nuevoArray = new T[capacidad];
                 for (int i = 0; i < cantidad; i++)
-                {
                     nuevoArray[i] = elementos[i];
-                }
                 elementos = nuevoArray;
             }
             elementos[cantidad++] = item;
+        }
+
+       
+        public void Add(T item)
+        {
+            Agregar(item);
         }
 
         public bool Contiene(T item)
@@ -67,12 +68,8 @@ namespace Risk_CR
         {
             for (int i = 0; i < cantidad; i++)
             {
-                if (elementos[i] == null && item == null)
-                {
-                    EliminarEnIndice(i);
-                    return true;
-                }
-                if (elementos[i] != null && elementos[i].Equals(item))
+                if ((elementos[i] == null && item == null) ||
+                    (elementos[i] != null && elementos[i].Equals(item)))
                 {
                     EliminarEnIndice(i);
                     return true;
@@ -84,9 +81,7 @@ namespace Risk_CR
         private void EliminarEnIndice(int index)
         {
             for (int i = index; i < cantidad - 1; i++)
-            {
                 elementos[i] = elementos[i + 1];
-            }
             cantidad--;
             elementos[cantidad] = default(T);
         }
@@ -95,15 +90,25 @@ namespace Risk_CR
         {
             T[] array = new T[cantidad];
             for (int i = 0; i < cantidad; i++)
-            {
                 array[i] = elementos[i];
-            }
             return array;
         }
 
         public void Limpiar()
         {
             cantidad = 0;
+        }
+
+        
+        public IEnumerator<T> GetEnumerator()
+        {
+            for (int i = 0; i < cantidad; i++)
+                yield return elementos[i];
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }

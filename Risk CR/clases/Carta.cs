@@ -10,7 +10,7 @@ namespace Risk_CR
     {
         Infanteria,
         Caballeria,
-        Canon
+        Artilleria,
     }
 
     public class Carta
