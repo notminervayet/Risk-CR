@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Risk_CR.Jugadores;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -43,17 +44,51 @@ namespace Risk_CR
             {
                 BotonAsociado.Text = $"{Nombre}\n{Tropas}";
 
+                // Cambiar color según el ocupante
                 if (Ocupante == null)
                 {
                     BotonAsociado.BackColor = Color.LightGray;
                 }
-                else
+                else if (Ocupante is Jugador jugador)
                 {
-                    BotonAsociado.BackColor = Color.LightBlue;
+                    // Asignar color según el nombre del color del jugador
+                    switch (jugador.Color.ToLower())
+                    {
+                        case "rojo":
+                            BotonAsociado.BackColor = Color.Red;
+                            break;
+                        case "azul":
+                            BotonAsociado.BackColor = Color.Blue;
+                            break;
+                        case "verde":
+                            BotonAsociado.BackColor = Color.Green;
+                            break;
+                        case "morado":
+                            BotonAsociado.BackColor = Color.Purple;
+                            break;
+                        case "amarillo":
+                            BotonAsociado.BackColor = Color.Yellow;
+                            break;
+                        case "gris":
+                            BotonAsociado.BackColor = Color.Gray;
+                            break;
+                        default:
+                            BotonAsociado.BackColor = Color.LightBlue;
+                            break;
+                    }
+
+                    // Asegurar que el texto sea visible
+                    if (jugador.Color.ToLower() == "amarillo" || jugador.Color.ToLower() == "gris")
+                    {
+                        BotonAsociado.ForeColor = Color.Black;
+                    }
+                    else
+                    {
+                        BotonAsociado.ForeColor = Color.White;
+                    }
                 }
 
-                BotonAsociado.ForeColor = Color.Black;
-                BotonAsociado.Font = new Font("Arial", 8, FontStyle.Bold);
+                BotonAsociado.Font = new Font("Arial", 5, FontStyle.Bold);
                 BotonAsociado.TextAlign = ContentAlignment.MiddleCenter;
             }
         }

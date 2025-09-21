@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Risk_CR.Jugadores;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -9,16 +10,28 @@ namespace Risk_CR
     public partial class MapaFormulario : Form
     {
         private PictureBox picMapa;
-        private List<Territorio> territorios;
+        private ListaGod<Territorio> territorios;
+        private Label lblJugadorActual;
+        private Label lblTropasDisponibles;
+        private Label lblFase;
+        private ListaGod<Jugador> jugadores;
 
-        public MapaFormulario()
+        // Constructor que recibe jugadores
+        public MapaFormulario(ListaGod<Jugador> jugadores)
         {
             InitializeComponent();
+            this.jugadores = jugadores;
+
             ConfigurarVentana();
+            InicializarControlesUI();
             InicializarTerritorios();
             EstablecerAdyacencias();
             InicializarMapa();
             CrearBotonesTerritorios();
+
+            // Iniciar el juego
+            Juego.Instance.IniciarJuego(this.jugadores, territorios);
+            ActualizarUI();
         }
 
         private void ConfigurarVentana()
@@ -29,82 +42,110 @@ namespace Risk_CR
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.StartPosition = FormStartPosition.CenterScreen;
-            
+        }
+
+        private void InicializarControlesUI()
+        {
+            // Panel de información
+            Panel panelInfo = new Panel();
+            panelInfo.Size = new Size(200, 100);
+            panelInfo.Location = new Point(10, 10);
+            panelInfo.BackColor = Color.FromArgb(180, Color.White);
+
+            lblJugadorActual = new Label();
+            lblJugadorActual.Location = new Point(10, 10);
+            lblJugadorActual.Size = new Size(180, 20);
+            lblJugadorActual.ForeColor = Color.Black;
+
+            lblTropasDisponibles = new Label();
+            lblTropasDisponibles.Location = new Point(10, 40);
+            lblTropasDisponibles.Size = new Size(180, 20);
+            lblTropasDisponibles.ForeColor = Color.Black;
+
+            lblFase = new Label();
+            lblFase.Location = new Point(10, 70);
+            lblFase.Size = new Size(180, 20);
+            lblFase.ForeColor = Color.Black;
+
+            panelInfo.Controls.Add(lblJugadorActual);
+            panelInfo.Controls.Add(lblTropasDisponibles);
+            panelInfo.Controls.Add(lblFase);
+
+            this.Controls.Add(panelInfo);
+            panelInfo.BringToFront();
         }
 
         private void InicializarTerritorios()
         {
-            territorios = new List<Territorio>();
+            territorios = new ListaGod<Territorio>();
 
-          
-            territorios.Add(new Territorio(1, "UCR", "San José"));
-            territorios.Add(new Territorio(2, "ParqueDiv", "San José"));
-            territorios.Add(new Territorio(3, "desampa", "San José"));
-            territorios.Add(new Territorio(4, "Empresarios Unidos", "San José"));
-            territorios.Add(new Territorio(5, "Plazadelsol", "San José"));
-            territorios.Add(new Territorio(6, "Lacali", "San José"));
-            territorios.Add(new Territorio(7, "AvenidaC", "San José"));
+            // San José
+            territorios.Agregar(new Territorio(1, "UCR", "San José"));
+            territorios.Agregar(new Territorio(2, "Plazasol", "San José"));
+            territorios.Agregar(new Territorio(3, "desampa", "San José"));
+            territorios.Agregar(new Territorio(4, "MuseoNiñ", "San José"));
+            territorios.Agregar(new Territorio(5, "Vinet", "San José"));
+            territorios.Agregar(new Territorio(6, "Cali", "San José"));
+            territorios.Agregar(new Territorio(7, "UCIMED", "San José"));
 
-        
-            territorios.Add(new Territorio(8, "PiedadesNorte", "Alajuela"));
-            territorios.Add(new Territorio(9, "SanRamón", "Alajuela"));
-            territorios.Add(new Territorio(10, "CasaEythan", "Alajuela"));
-            territorios.Add(new Territorio(11, "SanCarlos", "Alajuela"));
-            territorios.Add(new Territorio(12, "SuperMario", "Alajuela"));
-            territorios.Add(new Territorio(13, "Bolivar", "Alajuela"));
-            territorios.Add(new Territorio(14, "Palmares", "Alajuela"));
+            // Alajuela
+            territorios.Agregar(new Territorio(8, "PiedadesN", "Alajuela"));
+            territorios.Agregar(new Territorio(9, "SnRamón", "Alajuela"));
+            territorios.Agregar(new Territorio(10, "CasaEythan", "Alajuela"));
+            territorios.Agregar(new Territorio(11, "SnCarlos", "Alajuela"));
+            territorios.Agregar(new Territorio(12, "SuperM", "Alajuela"));
+            territorios.Agregar(new Territorio(13, "Bolivar", "Alajuela"));
+            territorios.Agregar(new Territorio(14, "Palmares", "Alajuela"));
 
-           
-            territorios.Add(new Territorio(15, "TEC", "Cartago"));
-            territorios.Add(new Territorio(16, "LasRuinas", "Cartago"));
-            territorios.Add(new Territorio(17, "LaBasilica", "Cartago"));
-            territorios.Add(new Territorio(18, "Irazu", "Cartago"));
-            territorios.Add(new Territorio(19, "ApartaEythan", "Cartago"));
-            territorios.Add(new Territorio(20, "ApartaLitzy", "Cartago"));
-            territorios.Add(new Territorio(21, "Casacampus", "Cartago"));
+            // Cartago
+            territorios.Agregar(new Territorio(15, "TEC", "Cartago"));
+            territorios.Agregar(new Territorio(16, "LasRuinas", "Cartago"));
+            territorios.Agregar(new Territorio(17, "LaBasilica", "Cartago"));
+            territorios.Agregar(new Territorio(18, "Irazu", "Cartago"));
+            territorios.Agregar(new Territorio(19, "Eythan´s", "Cartago"));
+            territorios.Agregar(new Territorio(20, "Litzy´s", "Cartago"));
+            territorios.Agregar(new Territorio(21, "Casacampus", "Cartago"));
 
-            
-            territorios.Add(new Territorio(22, "Puerto Viejo", "Limon"));
-            territorios.Add(new Territorio(23, "Expo", "Limon"));
-            territorios.Add(new Territorio(24, "Bataan", "Limon"));
-            territorios.Add(new Territorio(25, "CasadeLitzy", "Limon"));
-            territorios.Add(new Territorio(26, "LaArgentina", "Limon"));
-            territorios.Add(new Territorio(27, "Cariari", "Limon"));
-            territorios.Add(new Territorio(28, "Yugo", "Limon"));
+            // Limon
+            territorios.Agregar(new Territorio(22, "P.Viejo", "Limon"));
+            territorios.Agregar(new Territorio(23, "Expo", "Limon"));
+            territorios.Agregar(new Territorio(24, "Bataan", "Limon"));
+            territorios.Agregar(new Territorio(25, "CasaLitzy", "Limon"));
+            territorios.Agregar(new Territorio(26, "Argentina", "Limon"));
+            territorios.Agregar(new Territorio(27, "Cariari", "Limon"));
+            territorios.Agregar(new Territorio(28, "Yugo", "Limon"));
 
-          
-            territorios.Add(new Territorio(29, "Samara", "Guanacaste"));
-            territorios.Add(new Territorio(30, "Nicoya", "Guanacaste"));
-            territorios.Add(new Territorio(31, "Hermosa", "Guanacaste"));
-            territorios.Add(new Territorio(32, "Conchal", "Guanacaste"));
-            territorios.Add(new Territorio(33, "Avellana", "Guanacaste"));
-            territorios.Add(new Territorio(34, "Bejuco", "Guanacaste"));
-            territorios.Add(new Territorio(35, "Coyote", "Guanacaste"));
+            // Guanacaste
+            territorios.Agregar(new Territorio(29, "Samara", "Guanacaste"));
+            territorios.Agregar(new Territorio(30, "Nicoya", "Guanacaste"));
+            territorios.Agregar(new Territorio(31, "Hermosa", "Guanacaste"));
+            territorios.Agregar(new Territorio(32, "Conchal", "Guanacaste"));
+            territorios.Agregar(new Territorio(33, "Avellana", "Guanacaste"));
+            territorios.Agregar(new Territorio(34, "Bejuco", "Guanacaste"));
+            territorios.Agregar(new Territorio(35, "Coyote", "Guanacaste"));
 
-            
-            territorios.Add(new Territorio(36, "Dominical", "Puntarenas"));
-            territorios.Add(new Territorio(37, "Parrita", "Puntarenas"));
-            territorios.Add(new Territorio(38, "ElPuerto", "Puntarenas"));
-            territorios.Add(new Territorio(39, "Jaco", "Puntarenas"));
-            territorios.Add(new Territorio(40, "Esparza", "Puntarenas"));
-            territorios.Add(new Territorio(41, "Quepos", "Puntarenas"));
-            territorios.Add(new Territorio(42, "Golfito", "Puntarenas"));
+            // Puntarenas
+            territorios.Agregar(new Territorio(36, "Dominical", "Puntarenas"));
+            territorios.Agregar(new Territorio(37, "Parrita", "Puntarenas"));
+            territorios.Agregar(new Territorio(38, "ElPuerto", "Puntarenas"));
+            territorios.Agregar(new Territorio(39, "Jaco", "Puntarenas"));
+            territorios.Agregar(new Territorio(40, "Esparza", "Puntarenas"));
+            territorios.Agregar(new Territorio(41, "Quepos", "Puntarenas"));
+            territorios.Agregar(new Territorio(42, "Golfito", "Puntarenas"));
         }
 
         private void EstablecerAdyacencias()
         {
-
-            //San jose
-            ConectarAdyacentes(1, new int[] { 2, 3, 4, 5, 6, 9 });//
-            ConectarAdyacentes(2, new int[] { 1, 3, 8, 9 });//
-            ConectarAdyacentes(3, new int[] { 8, 2, 1, 5, 4 });//
+            // San jose
+            ConectarAdyacentes(1, new int[] { 2, 3, 4, 5, 6, 9 });
+            ConectarAdyacentes(2, new int[] { 1, 3, 8, 9 });
+            ConectarAdyacentes(3, new int[] { 8, 2, 1, 5, 4 });
             ConectarAdyacentes(4, new int[] { 3, 5, 17, 7 });
             ConectarAdyacentes(5, new int[] { 1, 3, 4, 17, 16, 15, 6 });
             ConectarAdyacentes(6, new int[] { 1, 5, 15, 9, 26 });
             ConectarAdyacentes(7, new int[] { 4, 17, 21, 38 });
 
-
-            //guanacaste
+            // Guanacaste
             ConectarAdyacentes(8, new int[] { 2, 9, 10, 34 });
             ConectarAdyacentes(9, new int[] { 2, 1, 6, 26, 24, 10, 14, 8 });
             ConectarAdyacentes(10, new int[] { 8, 9, 14, 13, 12, 11, 34 });
@@ -113,15 +154,13 @@ namespace Risk_CR
             ConectarAdyacentes(13, new int[] { 12, 10, 14 });
             ConectarAdyacentes(14, new int[] { 13, 14, 9, 24, 22 });
 
-
             ConectarAdyacentes(15, new int[] { 6, 5, 16, 18, 28, 27, 24, 26 });
             ConectarAdyacentes(16, new int[] { 5, 17, 20, 18, 15 });
             ConectarAdyacentes(17, new int[] { 5, 4, 7, 21, 20, 16 });
-            ConectarAdyacentes(18, new int[] { 28, 15, 16, 20, 19, });
+            ConectarAdyacentes(18, new int[] { 28, 15, 16, 20, 19 });
             ConectarAdyacentes(19, new int[] { 18, 20, 36 });
             ConectarAdyacentes(20, new int[] { 16, 17, 18, 19, 21, 36, 37 });
             ConectarAdyacentes(21, new int[] { 7, 17, 20, 37, 38 });
-
 
             ConectarAdyacentes(22, new int[] { 14, 24, 23, 25 });
             ConectarAdyacentes(23, new int[] { 22, 25 });
@@ -130,7 +169,6 @@ namespace Risk_CR
             ConectarAdyacentes(26, new int[] { 9, 6, 24, 15 });
             ConectarAdyacentes(27, new int[] { 24, 25, 28, 15 });
             ConectarAdyacentes(28, new int[] { 15, 18, 25, 27 });
-
 
             ConectarAdyacentes(29, new int[] { 30, 31 });
             ConectarAdyacentes(30, new int[] { 12, 11, 29, 31, 32 });
@@ -147,13 +185,8 @@ namespace Risk_CR
             ConectarAdyacentes(40, new int[] { 37, 39, 38, 41 });
             ConectarAdyacentes(41, new int[] { 40, 38 });
             ConectarAdyacentes(42, new int[] { 38 });
-
-
-
-
         }
 
-        
         private void ConectarAdyacentes(int idTerritorio, int[] idsAdyacentes)
         {
             Territorio territorio = BuscarTerritorioPorId(idTerritorio);
@@ -170,8 +203,9 @@ namespace Risk_CR
 
         private Territorio BuscarTerritorioPorId(int id)
         {
-            foreach (Territorio territorio in territorios)
+            for (int i = 0; i < territorios.Count; i++)
             {
+                Territorio territorio = territorios.Obtener(i);
                 if (territorio.Id == id)
                     return territorio;
             }
@@ -185,11 +219,14 @@ namespace Risk_CR
             picMapa.SizeMode = PictureBoxSizeMode.Zoom;
 
             string rutaTile = Path.Combine(Application.StartupPath, "imagenes", "majestad2.png");
-            picMapa.BackgroundImage = Image.FromFile(rutaTile);
+            if (File.Exists(rutaTile))
+                picMapa.BackgroundImage = Image.FromFile(rutaTile);
+
             picMapa.BackgroundImageLayout = ImageLayout.Tile;
 
             string ruta = Path.Combine(Application.StartupPath, "imagenes", "MapaImagenPNG.png");
-            picMapa.Image = Image.FromFile(ruta);
+            if (File.Exists(ruta))
+                picMapa.Image = Image.FromFile(ruta);
 
             this.Controls.Add(picMapa);
             picMapa.SendToBack();
@@ -197,98 +234,142 @@ namespace Risk_CR
 
         private void CrearBotonesTerritorios()
         {
-            
             Dictionary<int, Point> posiciones = new Dictionary<int, Point>()
             {
                 // San José
-                {1, new Point(547, 285)},  // UCR
-                {2, new Point(500, 300)},  // ParqueDiv
-                {3, new Point(540, 340)},  // Desampa
-                {4, new Point(600, 357)},  // Empresarios Unidos
-                {5, new Point(610, 300)},  // Plazadel sol
-                {6, new Point(585, 235)},  // Lacali
-                {7, new Point(640, 410)},  // AvenidaC
+                {1, new Point(547, 285)},
+                {2, new Point(500, 300)},
+                {3, new Point(540, 340)},
+                {4, new Point(600, 357)},
+                {5, new Point(610, 300)},
+                {6, new Point(585, 235)},
+                {7, new Point(640, 410)},
                 
                 // Alajuela
-                {8, new Point(455, 265)},  // PiedadesNorte
-                {9, new Point(537, 245)},  // SanRamón
-                {10, new Point(465, 200)}, // CasaEythan
-                {11, new Point(410, 150)}, // SanCarlos
-                {12, new Point(415, 105)}, // SuperMario
-                {13, new Point(475, 100)}, // Bolivar
-                {14, new Point(525, 125)}, // Palmares
-
+                {8, new Point(455, 265)},
+                {9, new Point(537, 245)}, 
+                {10, new Point(465, 200)},
+                {11, new Point(410, 150)},
+                {12, new Point(415, 105)},
+                {13, new Point(475, 100)},
+                {14, new Point(525, 125)},
+                
                 // Cartago
-                {15, new Point(650, 250)}, // TEC
-                {16, new Point(690, 300)}, // LasRuinas
-                {17, new Point(655, 350)}, // LaBasilica
-                {18, new Point(730, 250)}, // Irazu
-                {19, new Point(800, 300)}, // ApartaEythan
-                {20, new Point(730, 320)}, // ApartaLitzy
-                {21, new Point(695, 415)}, // Casacampus
-
-                // limon
-                {22, new Point(590, 127)}, // Puerto Viejo
-                {23, new Point(662, 123)}, // Expo
-                {24, new Point(590, 167)}, // Bataan
-                {25, new Point(670, 166)}, // CasadeLitzy
-                {26, new Point(585, 202)}, // LaArgentina
-                {27, new Point(650, 202)}, // Cariari
-                {28, new Point(717, 206)}, // Yugo
-
+                {15, new Point(650, 250)},
+                {16, new Point(690, 300)},
+                {17, new Point(655, 350)},
+                {18, new Point(730, 250)},
+                {19, new Point(800, 300)},
+                {20, new Point(730, 320)},
+                {21, new Point(695, 415)},
+                
+                // Limon
+                {22, new Point(590, 127)},
+                {23, new Point(662, 123)}, 
+                {24, new Point(590, 167)},
+                {25, new Point(670, 166)},
+                {26, new Point(585, 202)}, 
+                {27, new Point(650, 202)},
+                {28, new Point(717, 206)},
+                
                 // Guanacaste
-                {29, new Point(272, 57)}, // Samara
-                {30, new Point(350, 80)}, // Nicoya
-                {31, new Point(292, 127)}, // Hermosa
-                {32, new Point(355, 160)}, // Conchal
-                {33, new Point(275, 220)}, // Avellana
-                {34, new Point(395, 200)}, // Bejuco
-                {35, new Point(355, 280)}, // Coyote
-
+                {29, new Point(272, 57)},
+                {30, new Point(350, 80)}, 
+                {31, new Point(292, 127)},
+                {32, new Point(355, 160)},
+                {33, new Point(275, 220)},
+                {34, new Point(395, 200)},
+                {35, new Point(355, 280)},
+                
                 // Puntarenas
-                {36, new Point(766, 354)}, // Dominical
-                {37, new Point(760, 410)}, // Parrita
-                {38, new Point(700, 455)}, // El Puerto
-                {39, new Point(815, 455)}, // Jaco
-                {40, new Point(760, 462)}, // Esparza
-                {41, new Point(775, 530)}, // Quepos
-                {42, new Point(675, 530)}  // Golfitoo
+                {36, new Point(766, 354)},
+                {37, new Point(760, 410)},
+                {38, new Point(700, 455)},
+                {39, new Point(815, 455)},
+                {40, new Point(760, 462)}, 
+                {41, new Point(775, 530)},
+                {42, new Point(675, 530)}
             };
 
-            foreach (Territorio territorio in territorios)
+            for (int i = 0; i < territorios.Count; i++)
             {
+                Territorio territorio = territorios.Obtener(i);
                 if (posiciones.ContainsKey(territorio.Id))
                 {
                     Button btn = new Button();
-                    btn.Size = new Size(60, 30);  
+                    btn.Size = new Size(55, 35);
                     btn.Location = posiciones[territorio.Id];
-                    btn.BackColor = Color.FromArgb(180, Color.LightGray);
+                    btn.BackColor = Color.LightGray;
                     btn.FlatStyle = FlatStyle.Flat;
-                    btn.FlatAppearance.BorderSize = 0;
-                    btn.Font = new Font("Arial", 7, FontStyle.Bold);
+                    btn.FlatAppearance.BorderSize = 1;
+                    btn.FlatAppearance.BorderColor = Color.Black;
+                    btn.Font = new Font("Arial", 5, FontStyle.Bold);
                     btn.TextAlign = ContentAlignment.MiddleCenter;
+                    btn.ForeColor = Color.Black;
 
-                   
                     btn.Tag = territorio;
                     territorio.BotonAsociado = btn;
 
-                    territorio.ActualizarVisualmente();
-
-                   
+                    // EVENTO CLICK
                     btn.Click += (sender, e) => {
                         Territorio terrClickeado = (Territorio)((Button)sender).Tag;
-                        MessageBox.Show($"{terrClickeado.Nombre}\nTropas: {terrClickeado.Tropas}\nAdyacentes: {terrClickeado.ObtenerNombresAdyacentes()}");
+
+                        if (Juego.Instance != null)
+                        {
+                            switch (Juego.Instance.FaseActual)
+                            {
+                                case Juego.FaseTurno.ColocacionInicial:
+                                    bool exito = Juego.Instance.ColocarTropaInicial(terrClickeado);
+                                    if (exito)
+                                    {
+                                        terrClickeado.ActualizarVisualmente();
+                                        ActualizarUI();
+                                    }
+                                    break;
+
+                                case Juego.FaseTurno.Refuerzo:
+                                    bool reforzado = Juego.Instance.ReforzarTerritorio(terrClickeado, 1);
+                                    if (reforzado)
+                                    {
+                                        terrClickeado.ActualizarVisualmente();
+                                        ActualizarUI();
+                                    }
+                                    break;
+
+                                default:
+                                    break;
+                            }
+                        }
                     };
 
                     this.Controls.Add(btn);
                     btn.BringToFront();
+
+                    // Actualizar visualmente inmediatamente
+                    territorio.ActualizarVisualmente();
+                }
+            }
+        }
+
+        private void ActualizarUI()
+        {
+            if (Juego.Instance != null && Juego.Instance.JugadorActual != null)
+            {
+                lblJugadorActual.Text = $"Jugador: {Juego.Instance.JugadorActual.Nombre}";
+                lblTropasDisponibles.Text = $"Tropas: {Juego.Instance.JugadorActual.TropasDisponibles}";
+                lblFase.Text = $"Fase: {Juego.Instance.FaseActual}";
+
+                // Actualizar todos los territorios visualmente
+                for (int i = 0; i < territorios.Count; i++)
+                {
+                    territorios.Obtener(i).ActualizarVisualmente();
                 }
             }
         }
 
         private void MapaFormulario_Load(object sender, EventArgs e)
         {
-
+            ActualizarUI();
         }
     }
 }

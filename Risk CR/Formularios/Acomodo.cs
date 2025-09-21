@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Risk_CR.Jugadores;
 
-
 namespace Risk_CR.Formularios
 {
     public partial class Acomodo : Form
@@ -17,7 +16,6 @@ namespace Risk_CR.Formularios
         public Acomodo()
         {
             InitializeComponent();
-
         }
 
         private void Acomodo_Load(object sender, EventArgs e)
@@ -36,7 +34,6 @@ namespace Risk_CR.Formularios
             comboBox2.Items.Add("Verde");
             comboBox2.Items.Add("Morado");
             comboBox2.Items.Add("Amarillo");
-
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -57,14 +54,15 @@ namespace Risk_CR.Formularios
             string color1 = comboBox1.SelectedItem?.ToString();
             string color2 = comboBox2.SelectedItem?.ToString();
 
-            Jugador jugador1 = new Jugador ( nombre1, color1 );
-            Jugador jugador2 = new Jugador ( nombre2,color2 );
-            Jugador ejercito_neutral= new Jugador("Ejercito Neutral", "Gris");
+            Jugador jugador1 = new Jugador(nombre1, color1);
+            Jugador jugador2 = new Jugador(nombre2, color2);
+            Jugador ejercito_neutral = new Jugador("Ejercito Neutral", "Gris");
 
-            ListaGod<Jugador> jugadores = new ListaGod<Jugador> { jugador1, jugador2 };
+            // ✅ CORRECCIÓN: AGREGAR EL EJÉRCITO NEUTRAL A LA LISTA
+            ListaGod<Jugador> jugadores = new ListaGod<Jugador> { jugador1, jugador2, ejercito_neutral };
 
             this.Hide();
-            MapaFormulario mapa = new MapaFormulario();
+            MapaFormulario mapa = new MapaFormulario(jugadores);
             mapa.ShowDialog();
             this.Show();
         }
@@ -98,11 +96,9 @@ namespace Risk_CR.Formularios
 
             pictureBoxPlay.Enabled = todoCorrecto;
             pictureBoxPlay.Visible = todoCorrecto;
-
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
-       
         {
             string nombre = textBox1.Text.Trim();
             string color1 = comboBox1.SelectedItem?.ToString();
@@ -194,14 +190,12 @@ namespace Risk_CR.Formularios
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
-
+            ValidarAmbos();
         }
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-          
+            ValidarAmbos();
         }
     }
 }
-
