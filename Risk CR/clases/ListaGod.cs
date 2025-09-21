@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Risk_CR
 {
-    public class ListaGod<T>
+    public class ListaGod<T> : IEnumerable<T>
     {
         private T[] elementos;
         private int capacidad;
