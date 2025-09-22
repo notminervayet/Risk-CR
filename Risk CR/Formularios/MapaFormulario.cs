@@ -15,8 +15,14 @@ namespace Risk_CR
         private Label lblTropasDisponibles;
         private Label lblFase;
         private ListaGod<Jugador> jugadores;
+        //private Territorio territorioOrigen ;
+        //private Territorio territorioDestino;
+        private Button btnAtacar;
+        private Button btnSiguienteFase;
 
-     
+
+
+
         public MapaFormulario(ListaGod<Jugador> jugadores)
         {
             InitializeComponent();
@@ -82,6 +88,27 @@ namespace Risk_CR
 
             this.Controls.Add(btnIntercambiarCartas);
             btnIntercambiarCartas.BringToFront();
+
+            btnAtacar = new Button();
+            btnAtacar.Text = "Atacar";
+            btnAtacar.Size = new Size(150, 30);
+            btnAtacar.Location = new Point(25, 250);
+            btnAtacar.Visible = false;
+            //btnAtacar.Click += BtnAtacar_Click;
+
+            this.Controls.Add(btnAtacar);
+            btnAtacar.BringToFront();
+
+            btnSiguienteFase = new Button();
+            btnSiguienteFase.Text = "Siguiente Fase";
+            btnSiguienteFase.Size = new Size(150, 30);
+            btnSiguienteFase.Location = new Point(25, 300); 
+            btnSiguienteFase.Click += BtnSiguienteFase_Click;
+
+            this.Controls.Add(btnSiguienteFase);
+            btnSiguienteFase.BringToFront();
+
+
 
         }
 
@@ -395,12 +422,24 @@ namespace Risk_CR
                 {
                     territorios.Obtener(i).ActualizarVisualmente();
                 }
+                bool enColocacionInicial = Juego.Instance.FaseActual == Juego.FaseTurno.ColocacionInicial;
+                btnSiguienteFase.Enabled = !enColocacionInicial;
+
             }
         }
+
+        private void BtnSiguienteFase_Click(object sender, EventArgs e)
+        {
+            Juego.Instance.AvanzarFase();
+            ActualizarUI();
+        }
+
 
         private void MapaFormulario_Load(object sender, EventArgs e)
         {
             ActualizarUI();
         }
+
+
     }
 }

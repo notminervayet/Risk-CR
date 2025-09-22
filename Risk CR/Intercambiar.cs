@@ -146,5 +146,10 @@ namespace Risk_CR.Formularios
             }
             return fibonacci[fibonacci.Length - 1];
         }
+
+        private void IntercambioTarjetasForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

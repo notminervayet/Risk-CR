@@ -47,11 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="clases\Carta.cs" />
-    <Compile Include="clases\ColaGod.cs" />
     <Compile Include="clases\Juego.cs" />
     <Compile Include="clases\ListaGod.cs" />
     <Compile Include="clases\Dado.cs" />
-    <Compile Include="clases\Estados.cs" />
     <Compile Include="clases\Jugador.cs" />
     <Compile Include="clases\Territorio.cs" />
     <Compile Include="Intercambiar.cs">
@@ -97,6 +95,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Tirada.resx">
       <DependentUpon>Tirada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Intercambiar.resx">
+      <DependentUpon>Intercambiar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

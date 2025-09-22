@@ -1,11 +1,13 @@
 ﻿using Risk_CR.Jugadores;
 using System;
+using System.Windows.Forms;
 
 namespace Risk_CR
 {
     public class Juego
     {
         private static Juego _instance;
+        private int turnoActual;
         public static Juego Instance
         {
             get
@@ -31,6 +33,7 @@ namespace Risk_CR
             Jugadores = new ListaGod<Jugador>();
             Territorios = new ListaGod<Territorio>();
             FaseActual = FaseTurno.ColocacionInicial;
+            turnoActual = 0;
         }
 
         public void IniciarJuego(ListaGod<Jugador> jugadores, ListaGod<Territorio> territorios)
@@ -59,6 +62,39 @@ namespace Risk_CR
             }
 
             FaseActual = FaseTurno.ColocacionInicial;
+        }
+        public void AvanzarFase()
+        {
+            switch (FaseActual)
+            {
+                case FaseTurno.Refuerzo:
+                    FaseActual = FaseTurno.Ataque;
+                    break;
+
+                case FaseTurno.Ataque:
+                    FaseActual = FaseTurno.Planeacion;
+                    break;
+
+                case FaseTurno.Planeacion:
+                    AvanzarTurno();                 
+                    FaseActual = FaseTurno.Refuerzo; 
+                    break;
+
+                   
+            }
+        }
+
+
+
+
+        public void AvanzarTurno()
+        {
+            turnoActual = (turnoActual + 1) % Jugadores.Count;
+            JugadorActual = Jugadores.Obtener(turnoActual);
+
+            // Si aterriza en el neutral, saltarlo inmediatamente
+            if (JugadorActual == EjercitoNeutral)
+                AvanzarTurno();
         }
 
         private void DistribuirTerritorios()
@@ -214,5 +250,7 @@ namespace Risk_CR
         {
             return territorio.Ocupante == JugadorActual;
         }
+
+
     }
 }
