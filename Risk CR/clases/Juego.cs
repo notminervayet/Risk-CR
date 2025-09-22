@@ -8,6 +8,7 @@ namespace Risk_CR
     {
         private static Juego _instance;
         private int turnoActual;
+        private int indiceInicioColocacion;
         public static Juego Instance
         {
             get
@@ -50,19 +51,28 @@ namespace Risk_CR
                 }
             }
 
+            if (EjercitoNeutral != null)
+            {
+                Jugadores.Remover(EjercitoNeutral);
+                Jugadores.Agregar(EjercitoNeutral);
+            }
+
             DistribuirTerritorios();
 
             for (int i = 0; i < Jugadores.Count; i++)
             {
                 if (Jugadores.Obtener(i) != EjercitoNeutral)
                 {
+                    turnoActual = i;
                     JugadorActual = Jugadores.Obtener(i);
+                    indiceInicioColocacion = turnoActual;
                     break;
                 }
             }
 
             FaseActual = FaseTurno.ColocacionInicial;
         }
+
         public void AvanzarFase()
         {
             switch (FaseActual)
@@ -84,17 +94,11 @@ namespace Risk_CR
             }
         }
 
-
-
-
         public void AvanzarTurno()
         {
             turnoActual = (turnoActual + 1) % Jugadores.Count;
             JugadorActual = Jugadores.Obtener(turnoActual);
 
-            // Si aterriza en el neutral, saltarlo inmediatamente
-            if (JugadorActual == EjercitoNeutral)
-                AvanzarTurno();
         }
 
         private void DistribuirTerritorios()
@@ -168,43 +172,33 @@ namespace Risk_CR
 
         private void SiguienteJugadorColocacion()
         {
-            int indiceActual = 0;
-
            
-            for (int i = 0; i < Jugadores.Count; i++)
+            if (TodosJugadoresTerminaron())
             {
-                if (Jugadores.Obtener(i) == JugadorActual)
-                {
-                    indiceActual = i;
-                    break;
-                }
+                FaseActual = FaseTurno.Refuerzo;
+
+                turnoActual = indiceInicioColocacion;
+                JugadorActual = Jugadores.Obtener(turnoActual);
+                return;
             }
 
-      
-            int siguienteIndice = (indiceActual + 1) % Jugadores.Count;
-            Jugador siguienteJugador = Jugadores.Obtener(siguienteIndice);
-
-            while (siguienteJugador.TropasDisponibles <= 0)
+            
+            do
             {
-                siguienteIndice = (siguienteIndice + 1) % Jugadores.Count;
-                siguienteJugador = Jugadores.Obtener(siguienteIndice);
-
-                if (siguienteJugador == JugadorActual)
-                {
-                    FaseActual = FaseTurno.Refuerzo;
-                    return;
-                }
+                turnoActual = (turnoActual + 1) % Jugadores.Count;
+                JugadorActual = Jugadores.Obtener(turnoActual);
             }
+            while (JugadorActual.TropasDisponibles <= 0);
 
-            JugadorActual = siguienteJugador;
-
-         
+            
             if (JugadorActual == EjercitoNeutral)
             {
                 ColocarTropaNeutralAutomatica();
-                SiguienteJugadorColocacion(); 
+                SiguienteJugadorColocacion();
             }
         }
+
+
 
         private void ColocarTropaNeutralAutomatica()
         {

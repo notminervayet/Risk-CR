@@ -417,7 +417,7 @@ namespace Risk_CR
                 lblTropasDisponibles.Text = $"Tropas: {Juego.Instance.JugadorActual.TropasDisponibles}";
                 lblFase.Text = $"Fase: {Juego.Instance.FaseActual}";
 
-              
+             
                 for (int i = 0; i < territorios.Count; i++)
                 {
                     territorios.Obtener(i).ActualizarVisualmente();
