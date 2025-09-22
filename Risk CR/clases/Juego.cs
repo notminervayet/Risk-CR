@@ -5,7 +5,6 @@ namespace Risk_CR
 {
     public class Juego
     {
-   
         private static Juego _instance;
         public static Juego Instance
         {
@@ -27,7 +26,6 @@ namespace Risk_CR
 
         public enum FaseTurno { ColocacionInicial, Refuerzo, Ataque, Planeacion }
 
-
         private Juego()
         {
             Jugadores = new ListaGod<Jugador>();
@@ -35,13 +33,11 @@ namespace Risk_CR
             FaseActual = FaseTurno.ColocacionInicial;
         }
 
-     
         public void IniciarJuego(ListaGod<Jugador> jugadores, ListaGod<Territorio> territorios)
         {
             Jugadores = jugadores;
             Territorios = territorios;
 
-            
             for (int i = 0; i < Jugadores.Count; i++)
             {
                 if (Jugadores.Obtener(i).Nombre == "Ejercito Neutral")
@@ -67,14 +63,12 @@ namespace Risk_CR
 
         private void DistribuirTerritorios()
         {
-         
             Territorio[] arrayTerritorios = new Territorio[Territorios.Count];
             for (int i = 0; i < Territorios.Count; i++)
             {
                 arrayTerritorios[i] = Territorios.Obtener(i);
             }
 
-           
             Random rnd = new Random();
             for (int i = 0; i < arrayTerritorios.Length; i++)
             {
@@ -105,17 +99,18 @@ namespace Risk_CR
                 arrayTerritorios[i].AgregarTropas(1);
             }
 
-         
+
             for (int j = 0; j < Jugadores.Count; j++)
             {
-         
-                if (Jugadores.Obtener(j) != EjercitoNeutral)
+                if (Jugadores.Obtener(j) == EjercitoNeutral)
+                {
+                    Jugadores.Obtener(j).TropasDisponibles = 14;
+                }
+                else
                 {
                     Jugadores.Obtener(j).TropasDisponibles = 26;
                 }
             }
-
-
         }
         public bool ColocarTropaInicial(Territorio territorio)
         {
@@ -129,11 +124,8 @@ namespace Risk_CR
             territorio.AgregarTropas(1);
             JugadorActual.TropasDisponibles--;
 
-           
-            if (JugadorActual.TropasDisponibles == 0)
-            {
-                SiguienteJugadorColocacion();
-            }
+        
+            SiguienteJugadorColocacion();
 
             return true;
         }
@@ -142,6 +134,7 @@ namespace Risk_CR
         {
             int indiceActual = 0;
 
+           
             for (int i = 0; i < Jugadores.Count; i++)
             {
                 if (Jugadores.Obtener(i) == JugadorActual)
@@ -151,49 +144,56 @@ namespace Risk_CR
                 }
             }
 
-           
+      
             int siguienteIndice = (indiceActual + 1) % Jugadores.Count;
-            while (Jugadores.Obtener(siguienteIndice) == EjercitoNeutral)
+            Jugador siguienteJugador = Jugadores.Obtener(siguienteIndice);
+
+            while (siguienteJugador.TropasDisponibles <= 0)
             {
                 siguienteIndice = (siguienteIndice + 1) % Jugadores.Count;
+                siguienteJugador = Jugadores.Obtener(siguienteIndice);
+
+                if (siguienteJugador == JugadorActual)
+                {
+                    FaseActual = FaseTurno.Refuerzo;
+                    return;
+                }
             }
 
-            JugadorActual = Jugadores.Obtener(siguienteIndice);
+            JugadorActual = siguienteJugador;
 
-          
-            if (TodosHumanosTerminaron())
+         
+            if (JugadorActual == EjercitoNeutral)
             {
-                
-                ColocarTropasNeutral();
-                FaseActual = FaseTurno.Refuerzo;
+                ColocarTropaNeutralAutomatica();
+                SiguienteJugadorColocacion(); 
             }
         }
 
-        private bool TodosHumanosTerminaron()
+        private void ColocarTropaNeutralAutomatica()
+        {
+            if (EjercitoNeutral.TropasDisponibles <= 0) return;
+
+            Random rnd = new Random();
+
+            int randomIndex = rnd.Next(EjercitoNeutral.TerritoriosControlados.Count);
+            Territorio territorio = EjercitoNeutral.TerritoriosControlados.Obtener(randomIndex);
+
+            territorio.AgregarTropas(1);
+            EjercitoNeutral.TropasDisponibles--;
+        }
+
+        private bool TodosJugadoresTerminaron()
         {
             for (int i = 0; i < Jugadores.Count; i++)
             {
                 Jugador jugador = Jugadores.Obtener(i);
-                if (jugador != EjercitoNeutral && jugador.TropasDisponibles > 0)
+                if (jugador.TropasDisponibles > 0)
                 {
                     return false;
                 }
             }
             return true;
-        }
-
-        private void ColocarTropasNeutral()
-        {
-            Random rnd = new Random();
-            while (EjercitoNeutral.TropasDisponibles > 0)
-            {
-       
-                int randomIndex = rnd.Next(EjercitoNeutral.TerritoriosControlados.Count);
-                Territorio territorio = EjercitoNeutral.TerritoriosControlados.Obtener(randomIndex);
-
-                territorio.AgregarTropas(1);
-                EjercitoNeutral.TropasDisponibles--;
-            }
         }
 
         public bool ReforzarTerritorio(Territorio territorio, int cantidad)
