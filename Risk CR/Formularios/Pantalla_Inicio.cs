@@ -53,8 +53,13 @@ namespace Risk_CR
             this.Show();
         }
 
-
-
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Tirada pantalla2 = new Tirada();
+            pantalla2.ShowDialog();
+            this.Show();
+        }
     }
 }
 

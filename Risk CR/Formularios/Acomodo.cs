@@ -58,7 +58,7 @@ namespace Risk_CR.Formularios
             Jugador jugador2 = new Jugador(nombre2, color2);
             Jugador ejercito_neutral = new Jugador("Ejercito Neutral", "Gris");
 
-            // ✅ CORRECCIÓN: AGREGAR EL EJÉRCITO NEUTRAL A LA LISTA
+            
             ListaGod<Jugador> jugadores = new ListaGod<Jugador> { jugador1, jugador2, ejercito_neutral };
 
             this.Hide();

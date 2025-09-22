@@ -11,7 +11,7 @@ namespace Risk_CR
 
         public int EjercitosPerdidosAtacante { get; private set; }
         public int EjercitosPerdidosDefensor { get; private set; }
-
+         
         public Dado()
         {
             AtacanteTiradas = new ListaGod<int>();
