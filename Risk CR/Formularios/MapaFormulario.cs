@@ -16,7 +16,7 @@ namespace Risk_CR
         private Label lblFase;
         private ListaGod<Jugador> jugadores;
 
-        // Constructor que recibe jugadores
+     
         public MapaFormulario(ListaGod<Jugador> jugadores)
         {
             InitializeComponent();
@@ -29,7 +29,7 @@ namespace Risk_CR
             InicializarMapa();
             CrearBotonesTerritorios();
 
-            // Iniciar el juego
+      
             Juego.Instance.IniciarJuego(this.jugadores, territorios);
             ActualizarUI();
         }
@@ -46,9 +46,9 @@ namespace Risk_CR
 
         private void InicializarControlesUI()
         {
-            // Panel de información
+     
             Panel panelInfo = new Panel();
-            panelInfo.Size = new Size(200, 100);
+            panelInfo.Size = new Size(200, 150);
             panelInfo.Location = new Point(10, 10);
             panelInfo.BackColor = Color.FromArgb(180, Color.White);
 
@@ -73,7 +73,18 @@ namespace Risk_CR
 
             this.Controls.Add(panelInfo);
             panelInfo.BringToFront();
+
+            Button btnIntercambiarCartas = new Button();
+            btnIntercambiarCartas.Text = "Intercambiar Cartas";
+            btnIntercambiarCartas.Size = new Size(150, 30);
+            btnIntercambiarCartas.Location = new Point(25, 200);
+            btnIntercambiarCartas.Click += BtnIntercambiarCartas_Click;
+
+            this.Controls.Add(btnIntercambiarCartas);
+            btnIntercambiarCartas.BringToFront();
+
         }
+
 
         private void InicializarTerritorios()
         {
@@ -310,7 +321,7 @@ namespace Risk_CR
                     btn.Tag = territorio;
                     territorio.BotonAsociado = btn;
 
-                    // EVENTO CLICK
+                
                     btn.Click += (sender, e) => {
                         Territorio terrClickeado = (Territorio)((Button)sender).Tag;
 
@@ -345,12 +356,32 @@ namespace Risk_CR
                     this.Controls.Add(btn);
                     btn.BringToFront();
 
-                    // Actualizar visualmente inmediatamente
+                  
                     territorio.ActualizarVisualmente();
                 }
             }
         }
+        private void BtnIntercambiarCartas_Click(object sender, EventArgs e)
+        {
+            if (Juego.Instance.FaseActual == Juego.FaseTurno.Refuerzo)
+            {
+                var jugador = Juego.Instance.JugadorActual;
+                if (jugador.ManoCartas.Count < 3)
+                {
+                    MessageBox.Show("No tienes suficientes cartas para intercambiar.");
+                    return;
+                }
 
+                Risk_CR.Formularios.IntercambioTarjetasForm form = new Risk_CR.Formularios.IntercambioTarjetasForm(jugador);
+                form.ShowDialog();
+
+                ActualizarUI();
+            }
+            else
+            {
+                MessageBox.Show("Solo puedes intercambiar cartas en la fase de refuerzo.");
+            }
+        }
         private void ActualizarUI()
         {
             if (Juego.Instance != null && Juego.Instance.JugadorActual != null)
@@ -359,7 +390,7 @@ namespace Risk_CR
                 lblTropasDisponibles.Text = $"Tropas: {Juego.Instance.JugadorActual.TropasDisponibles}";
                 lblFase.Text = $"Fase: {Juego.Instance.FaseActual}";
 
-                // Actualizar todos los territorios visualmente
+              
                 for (int i = 0; i < territorios.Count; i++)
                 {
                     territorios.Obtener(i).ActualizarVisualmente();

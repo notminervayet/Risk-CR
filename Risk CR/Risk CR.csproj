@@ -54,6 +54,12 @@
     <Compile Include="clases\Estados.cs" />
     <Compile Include="clases\Jugador.cs" />
     <Compile Include="clases\Territorio.cs" />
+    <Compile Include="Intercambiar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Intercambiar.Designer.cs">
+      <DependentUpon>Intercambiar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Formularios\Acomodo.cs">
       <SubType>Form</SubType>
     </Compile>
