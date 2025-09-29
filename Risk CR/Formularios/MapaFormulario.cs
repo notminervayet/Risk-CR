@@ -1,4 +1,5 @@
-﻿using Risk_CR.Jugadores;
+﻿using Risk_CR.Formularios;
+using Risk_CR.Jugadores;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -17,7 +18,7 @@ namespace Risk_CR
         private ListaGod<Jugador> jugadores;
         //private Territorio territorioOrigen ;
         //private Territorio territorioDestino;
-        private Button btnAtacar;
+
         private Button btnSiguienteFase;
 
 
@@ -80,25 +81,9 @@ namespace Risk_CR
             this.Controls.Add(panelInfo);
             panelInfo.BringToFront();
 
-            Button btnIntercambiarCartas = new Button();
-            btnIntercambiarCartas.Text = "Intercambiar Cartas";
-            btnIntercambiarCartas.Size = new Size(150, 30);
-            btnIntercambiarCartas.Location = new Point(25, 200);
-            btnIntercambiarCartas.Click += BtnIntercambiarCartas_Click;
+           
 
-            this.Controls.Add(btnIntercambiarCartas);
-            btnIntercambiarCartas.BringToFront();
-
-            btnAtacar = new Button();
-            btnAtacar.Text = "Atacar";
-            btnAtacar.Size = new Size(150, 30);
-            btnAtacar.Location = new Point(25, 250);
-            btnAtacar.Visible = false;
-            //btnAtacar.Click += BtnAtacar_Click;
-
-            this.Controls.Add(btnAtacar);
-            btnAtacar.BringToFront();
-
+           
             btnSiguienteFase = new Button();
             btnSiguienteFase.Text = "Siguiente Fase";
             btnSiguienteFase.Size = new Size(150, 30);
@@ -348,7 +333,7 @@ namespace Risk_CR
                     btn.Tag = territorio;
                     territorio.BotonAsociado = btn;
 
-                
+
                     btn.Click += (sender, e) => {
                         Territorio terrClickeado = (Territorio)((Button)sender).Tag;
 
@@ -374,6 +359,10 @@ namespace Risk_CR
                                     }
                                     break;
 
+                                case Juego.FaseTurno.Ataque:
+                                    ManejarAtaque(terrClickeado);
+                                    break;
+
                                 default:
                                     break;
                             }
@@ -388,27 +377,51 @@ namespace Risk_CR
                 }
             }
         }
-        private void BtnIntercambiarCartas_Click(object sender, EventArgs e)
+        private void ManejarAtaque(Territorio territorioClickeado)
         {
-            if (Juego.Instance.FaseActual == Juego.FaseTurno.Refuerzo)
+            // Si es territorio propio, seleccionar para atacar
+            if (Juego.Instance.TerritorioPerteneceAJugadorActual(territorioClickeado))
             {
-                var jugador = Juego.Instance.JugadorActual;
-                if (jugador.ManoCartas.Count < 3)
+                if (!territorioClickeado.PuedeAtacar())
                 {
-                    MessageBox.Show("No tienes suficientes cartas para intercambiar.");
+                    MessageBox.Show("Este territorio no tiene suficientes tropas para atacar (mínimo 2)");
                     return;
                 }
 
-                Risk_CR.Formularios.IntercambioTarjetasForm form = new Risk_CR.Formularios.IntercambioTarjetasForm(jugador);
-                form.ShowDialog();
+                using (var formSeleccion = new SeleccionAtaqueForm(territorioClickeado))
+                {
+                    if (formSeleccion.ShowDialog() == DialogResult.OK)
+                    {
+                        var destino = formSeleccion.TerritorioDestinoSeleccionado;
 
-                ActualizarUI();
-            }
-            else
-            {
-                MessageBox.Show("Solo puedes intercambiar cartas en la fase de refuerzo.");
+                        if (Juego.Instance.IniciarAtaque(territorioClickeado, destino))
+                        {
+                            using (var formConfig = new ConfiguracionAtaqueForm(territorioClickeado, destino))
+                            {
+                                if (formConfig.ShowDialog() == DialogResult.OK)
+                                {
+                                    var resultado = Juego.Instance.ResolverAtaque(
+                                        formConfig.TropasAtacante,
+                                        formConfig.TropasDefensor);
+
+                                    // Mostrar resultados
+                                    using (var formResultado = new Tirada(resultado, territorioClickeado, destino))
+                                    {
+                                        formResultado.ShowDialog();
+                                    }
+
+                                    // Actualizar interfaz
+                                    territorioClickeado.ActualizarVisualmente();
+                                    destino.ActualizarVisualmente();
+                                    ActualizarUI();
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
+       
         private void ActualizarUI()
         {
             if (Juego.Instance != null && Juego.Instance.JugadorActual != null)
@@ -417,14 +430,16 @@ namespace Risk_CR
                 lblTropasDisponibles.Text = $"Tropas: {Juego.Instance.JugadorActual.TropasDisponibles}";
                 lblFase.Text = $"Fase: {Juego.Instance.FaseActual}";
 
-             
+                // Mostrar/ocultar botón de ataque según la fase
+               
+
                 for (int i = 0; i < territorios.Count; i++)
                 {
                     territorios.Obtener(i).ActualizarVisualmente();
                 }
+
                 bool enColocacionInicial = Juego.Instance.FaseActual == Juego.FaseTurno.ColocacionInicial;
                 btnSiguienteFase.Enabled = !enColocacionInicial;
-
             }
         }
 
