@@ -363,6 +363,18 @@ namespace Risk_CR
                                     ManejarAtaque(terrClickeado);
                                     break;
 
+                                case Juego.FaseTurno.Planeacion:
+                                    using (var dlg = new movertropas(terrClickeado))
+                                    {
+                                        if (dlg.ShowDialog() == DialogResult.OK)
+                                        {
+                                            foreach (var t in Juego.Instance.Territorios)
+                                                t.ActualizarVisualmente();
+                                            ActualizarUI();
+                                        }
+                                    }
+                                    break;
+
                                 default:
                                     break;
                             }

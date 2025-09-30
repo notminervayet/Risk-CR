@@ -319,6 +319,37 @@ namespace Risk_CR
             public int TropasDefensor { get; set; }
         }
 
+        private bool HayRutaControlada(Territorio origen, Territorio destino)
+        {
+            var visitados = new ListaGod<Territorio>();
+            var cola = new ListaGod<Territorio>();
+            int cabeza = 0;
+
+            cola.Agregar(origen);
+            visitados.Agregar(origen);
+
+            while (cabeza < cola.Count)
+            {
+                Territorio actual = cola.Obtener(cabeza++);
+                if (actual == destino)
+                    return true;
+
+               
+                for (int i = 0; i < actual.TerritoriosAdyacentes.Count; i++)
+                {
+                    var vecino = actual.TerritoriosAdyacentes.Obtener(i);
+                    if (vecino.Ocupante == JugadorActual && !visitados.Contiene(vecino))
+                    {
+                        cola.Agregar(vecino);
+                        visitados.Agregar(vecino);
+                    }
+                }
+            }
+
+            return false;
+        }
+
+
 
         public bool IniciarAtaque(Territorio origen, Territorio destino)
         {
@@ -388,6 +419,34 @@ namespace Risk_CR
                     MessageBox.Show($"¡Recibiste una carta: {nuevaCarta.Territorio} - {nuevaCarta.Tipo}!", "Carta Obtenida");
                 }
             }
+            
+
+
         }
+       
+        public bool MoverTropasPlaneacion(Territorio origen, Territorio destino, int cantidad)
+        {
+            if (FaseActual != FaseTurno.Planeacion)
+                return false;
+
+            if (origen.Ocupante != JugadorActual ||
+                destino.Ocupante != JugadorActual)
+                return false;
+
+            if (origen.Tropas < 2 || cantidad < 1 || cantidad > origen.Tropas - 1)
+                return false;
+
+            if (!HayRutaControlada(origen, destino))
+                return false;
+
+            origen.RemoverTropas(cantidad);
+            destino.AgregarTropas(cantidad);
+
+           
+            AvanzarFase();
+            return true;
+        }
+
     }
+
 }
