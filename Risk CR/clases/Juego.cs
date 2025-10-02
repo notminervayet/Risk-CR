@@ -97,12 +97,25 @@ namespace Risk_CR
             }
         }
 
+        private bool EsJugadorActivo(Jugador j)
+        {
+            return j != EjercitoNeutral
+                && j.TerritoriosControlados.Count > 0;
+        }
+
         public void AvanzarTurno()
         {
-            turnoActual = (turnoActual + 1) % Jugadores.Count;
-            JugadorActual = Jugadores.Obtener(turnoActual);
+            int siguiente = turnoActual;
+            do
+            {
+                siguiente = (siguiente + 1) % Jugadores.Count;
+            }
+            while (!EsJugadorActivo(Jugadores.Obtener(siguiente)));
 
+            turnoActual = siguiente;
+            JugadorActual = Jugadores.Obtener(turnoActual);
         }
+
 
         private void DistribuirTerritorios()
         {
