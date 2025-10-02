@@ -206,39 +206,36 @@ namespace Risk_CR
 
         public void DarRefuerzosAlJugador()
         {
-
             if (FaseActual != FaseTurno.Refuerzo) return;
 
+            // Verificar si el jugador tiene 6 o más cartas (debe intercambiar)
+            if (JugadorActual.ManoCartas.Count >= 6)
+            {
+                MessageBox.Show($"Tienes {JugadorActual.ManoCartas.Count} cartas. Debes intercambiar al menos un trío antes de recibir refuerzos.",
+                              "Intercambio Obligatorio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             int cantidadTerritorios = JugadorActual.TerritoriosControlados.Count;
-
-
             int refuerzosBase = cantidadTerritorios / 3;
             if (refuerzosBase < 3) refuerzosBase = 3;
 
-
             int bonusExtra = 0;
-
-
             if (JugadorTieneTodaLaProvincia("San José")) bonusExtra += 2;
-
-
             if (JugadorTieneTodaLaProvincia("Alajuela")) bonusExtra += 2;
-
             if (JugadorTieneTodaLaProvincia("Cartago")) bonusExtra += 3;
-
-
             if (JugadorTieneTodaLaProvincia("Limon")) bonusExtra += 3;
-
             if (JugadorTieneTodaLaProvincia("Guanacaste")) bonusExtra += 5;
-
-
             if (JugadorTieneTodaLaProvincia("Puntarenas")) bonusExtra += 7;
 
-
             int totalRefuerzos = refuerzosBase + bonusExtra;
-
             JugadorActual.TropasDisponibles += totalRefuerzos;
+        }
+
+        public bool PuedeIntercambiarCartas()
+        {
+            // El jugador puede intentar intercambiar si tiene al menos 3 cartas
+            return JugadorActual.ManoCartas.Count >= 3;
         }
 
 
