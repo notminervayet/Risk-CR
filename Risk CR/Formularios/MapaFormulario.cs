@@ -463,7 +463,23 @@ namespace Risk_CR
 
         private void BtnSiguienteFase_Click(object sender, EventArgs e)
         {
-            Juego.Instance.AvanzarFase();
+         
+            bool avanceExitoso = Juego.Instance.AvanzarFase();
+
+           
+            if (!avanceExitoso)
+            {
+                return;
+            }
+
+          
+            if (Juego.Instance.JuegoTerminado)
+            {
+                MessageBox.Show("¡Juego terminado! Regresando al menú principal.",
+                              "Fin del Juego", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
+            }
+
             ActualizarUI();
         }
 

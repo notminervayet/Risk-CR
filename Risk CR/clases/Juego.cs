@@ -29,6 +29,7 @@ namespace Risk_CR
         public AtaqueData AtaqueActual { get; private set; }
         public enum FaseTurno { ColocacionInicial, Refuerzo, Ataque, Planeacion }
 
+        private const int TOTAL_TERRITORIOS = 42;
         private Juego()
         {
             Jugadores = new ListaGod<Jugador>();
@@ -42,6 +43,7 @@ namespace Risk_CR
             Jugadores = jugadores;
             Territorios = territorios;
 
+        
             for (int i = 0; i < Jugadores.Count; i++)
             {
                 if (Jugadores.Obtener(i).Nombre == "Ejercito Neutral")
@@ -51,10 +53,26 @@ namespace Risk_CR
                 }
             }
 
-            if (EjercitoNeutral != null)
+           
+            if (EjercitoNeutral == null)
+            {
+                EjercitoNeutral = new Jugador("Ejercito Neutral", "Gris");
+                Jugadores.Agregar(EjercitoNeutral);
+            }
+            else
             {
                 Jugadores.Remover(EjercitoNeutral);
                 Jugadores.Agregar(EjercitoNeutral);
+            }
+
+           
+            for (int i = 0; i < Jugadores.Count; i++)
+            {
+                Jugador jugador = Jugadores.Obtener(i);
+                if (jugador.Nombre.ToLower() == "ejercito neutral" && jugador != EjercitoNeutral)
+                {
+                    throw new InvalidOperationException("No se permite usar 'Ejercito Neutral' como nombre de jugador.");
+                }
             }
 
             DistribuirTerritorios();
@@ -73,12 +91,11 @@ namespace Risk_CR
             FaseActual = FaseTurno.ColocacionInicial;
         }
 
-        public void AvanzarFase()
+        public bool AvanzarFase()
         {
             switch (FaseActual)
             {
                 case FaseTurno.ColocacionInicial:
-
                     break;
 
                 case FaseTurno.Planeacion:
@@ -88,6 +105,13 @@ namespace Risk_CR
                     break;
 
                 case FaseTurno.Refuerzo:
+             
+                    if (JugadorActual.ManoCartas.Count >= 6)
+                    {
+                        MessageBox.Show($"No puedes pasar a la fase de ataque. Tienes {JugadorActual.ManoCartas.Count} cartas.\nDebes intercambiar al menos un trío de cartas.",
+                                      "Intercambio Obligatorio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return false;
+                    }
                     FaseActual = FaseTurno.Ataque;
                     break;
 
@@ -95,6 +119,14 @@ namespace Risk_CR
                     FaseActual = FaseTurno.Planeacion;
                     break;
             }
+
+            if (VerificarVictoria())
+            {
+                MessageBox.Show($"¡{JugadorActual.Nombre} ha conquistado el mundo!\n¡Felicidades, has ganado el juego!",
+                              "Victoria", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+
+            return true; 
         }
 
         private bool EsJugadorActivo(Jugador j)
@@ -216,19 +248,30 @@ namespace Risk_CR
                 SiguienteJugadorColocacion();
             }
         }
+        public bool VerificarVictoria()
+        {
+           
+            for (int i = 0; i < Jugadores.Count; i++)
+            {
+                Jugador jugador = Jugadores.Obtener(i);
 
+                if (jugador == EjercitoNeutral)
+                    continue;
+
+         
+                if (jugador.TerritoriosControlados.Count == TOTAL_TERRITORIOS)
+                {
+                    JuegoTerminado = true;
+                    return true;
+                }
+            }
+            return false;
+        }
         public void DarRefuerzosAlJugador()
         {
             if (FaseActual != FaseTurno.Refuerzo) return;
 
-            // Verificar si el jugador tiene 6 o más cartas (debe intercambiar)
-            if (JugadorActual.ManoCartas.Count >= 6)
-            {
-                MessageBox.Show($"Tienes {JugadorActual.ManoCartas.Count} cartas. Debes intercambiar al menos un trío antes de recibir refuerzos.",
-                              "Intercambio Obligatorio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
+           
             int cantidadTerritorios = JugadorActual.TerritoriosControlados.Count;
             int refuerzosBase = cantidadTerritorios / 3;
             if (refuerzosBase < 3) refuerzosBase = 3;
@@ -243,11 +286,18 @@ namespace Risk_CR
 
             int totalRefuerzos = refuerzosBase + bonusExtra;
             JugadorActual.TropasDisponibles += totalRefuerzos;
+
+          
+            if (JugadorActual.ManoCartas.Count >= 6)
+            {
+                MessageBox.Show($"Tienes {JugadorActual.ManoCartas.Count} cartas. Debes intercambiar al menos un trío antes de poder atacar.",
+                              "Intercambio Obligatorio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         public bool PuedeIntercambiarCartas()
         {
-            // El jugador puede intentar intercambiar si tiene al menos 3 cartas
+         
             return JugadorActual.ManoCartas.Count >= 3;
         }
 
@@ -414,12 +464,12 @@ namespace Risk_CR
             JugadorActual.AgregarTerritorio(territorioConquistado);
             territorioConquistado.CambiarOcupante(JugadorActual);
 
-           
+            // Mover tropas después de conquistar
             int tropasAMover = Math.Min(AtaqueActual.TropasAtacante, AtaqueActual.Origen.Tropas - 1);
             AtaqueActual.Origen.RemoverTropas(tropasAMover);
             territorioConquistado.AgregarTropas(tropasAMover);
 
-        
+            // Reclamar carta si existe
             if (territorioConquistado.TieneCarta)
             {
                 Carta nuevaCarta = territorioConquistado.ReclamarCarta();
@@ -429,11 +479,15 @@ namespace Risk_CR
                     MessageBox.Show($"¡Recibiste una carta: {nuevaCarta.Territorio} - {nuevaCarta.Tipo}!", "Carta Obtenida");
                 }
             }
-            
 
-
+            // VERIFICAR VICTORIA DESPUÉS DE CONQUISTAR
+            if (VerificarVictoria())
+            {
+                MessageBox.Show($"¡{JugadorActual.Nombre} ha conquistado el mundo!\n¡Felicidades, has ganado el juego!",
+                              "Victoria", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
-       
+
         public bool MoverTropasPlaneacion(Territorio origen, Territorio destino, int cantidad)
         {
             if (FaseActual != FaseTurno.Planeacion)
