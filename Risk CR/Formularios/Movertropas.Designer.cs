@@ -24,7 +24,15 @@
 
         private void InitializeComponent()
         {
-          
+            this.SuspendLayout();
+            // 
+            // movertropas
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Name = "movertropas";
+            this.Load += new System.EventHandler(this.movertropas_Load);
+            this.ResumeLayout(false);
+
         }
 
         #endregion

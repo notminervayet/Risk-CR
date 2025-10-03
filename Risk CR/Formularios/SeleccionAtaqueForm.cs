@@ -91,5 +91,23 @@ namespace Risk_CR.Formularios
                 return Texto;
             }
         }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // SeleccionAtaqueForm
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Name = "SeleccionAtaqueForm";
+            this.Load += new System.EventHandler(this.SeleccionAtaqueForm_Load);
+            this.ResumeLayout(false);
+
+        }
+
+        private void SeleccionAtaqueForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

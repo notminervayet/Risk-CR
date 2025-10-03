@@ -217,5 +217,23 @@ namespace Risk_CR.Formularios
 
             Juego.Instance.ContadorFibonacci = siguiente;
         }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // IntercambiarCartasForm
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Name = "IntercambiarCartasForm";
+            this.Load += new System.EventHandler(this.IntercambiarCartasForm_Load);
+            this.ResumeLayout(false);
+
+        }
+
+        private void IntercambiarCartasForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

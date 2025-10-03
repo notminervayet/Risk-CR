@@ -423,10 +423,7 @@ namespace Risk_CR
                                         formConfig.TropasDefensor);
 
                                    
-                                    using (var formResultado = new Tirada(resultado, territorioClickeado, destino))
-                                    {
-                                        formResultado.ShowDialog();
-                                    }
+                                    
 
                                     
                                     territorioClickeado.ActualizarVisualmente();

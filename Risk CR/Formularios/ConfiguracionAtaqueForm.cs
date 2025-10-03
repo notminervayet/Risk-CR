@@ -120,5 +120,10 @@ namespace Risk_CR.Formularios
             });
             this.Controls.Add(panel);
         }
+
+        private void ConfiguracionAtaqueForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

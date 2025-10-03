@@ -82,13 +82,7 @@
     <Compile Include="Formularios\MapaFormulario.Designer.cs">
       <DependentUpon>MapaFormulario.cs</DependentUpon>
     </Compile>
-    <Compile Include="Formularios\Tirada.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Formularios\Tirada.Designer.cs">
-      <DependentUpon>Tirada.cs</DependentUpon>
-    </Compile>
-    <Compile Include="IntercambiarCartasForm.cs">
+    <Compile Include="Formularios\IntercambiarCartasForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Program.cs" />
@@ -102,6 +96,9 @@
     <EmbeddedResource Include="Formularios\Acomodo.resx">
       <DependentUpon>Acomodo.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\IntercambiarCartasForm.resx">
+      <DependentUpon>IntercambiarCartasForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\MapaFormulario.resx">
       <DependentUpon>MapaFormulario.cs</DependentUpon>
     </EmbeddedResource>
@@ -110,9 +107,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Pantalla_Inicio.resx">
       <DependentUpon>Pantalla_Inicio.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\Tirada.resx">
-      <DependentUpon>Tirada.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

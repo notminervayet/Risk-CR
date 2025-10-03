@@ -1,6 +1,4 @@
-﻿using Risk_CR;
-using Risk_CR.Jugadores;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -124,6 +122,11 @@ namespace Risk_CR.Formularios
                 Texto = texto;
             }
             public override string ToString() => Texto;
+        }
+
+        private void movertropas_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

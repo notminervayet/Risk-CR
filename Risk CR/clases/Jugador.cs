@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 
 namespace Risk_CR.Jugadores
 {
