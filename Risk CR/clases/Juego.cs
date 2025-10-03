@@ -480,7 +480,7 @@ namespace Risk_CR
                 }
             }
 
-            // VERIFICAR VICTORIA DESPUÉS DE CONQUISTAR
+          
             if (VerificarVictoria())
             {
                 MessageBox.Show($"¡{JugadorActual.Nombre} ha conquistado el mundo!\n¡Felicidades, has ganado el juego!",
