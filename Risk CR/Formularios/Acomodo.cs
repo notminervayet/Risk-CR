@@ -1,4 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Risk_CR.Jugadores;
 
@@ -6,9 +13,69 @@ namespace Risk_CR.Formularios
 {
     public partial class Acomodo : Form
     {
+        private CheckBox checkBox3;
+        private TextBox textBox3;
+        private ComboBox comboBox3;
+        private Label labelad3;
+        private Label label3;
+
         public Acomodo()
         {
             InitializeComponent();
+            InicializarTercerJugador();
+            ConfigurarEventos();
+        }
+
+        private void ConfigurarEventos()
+        {
+            
+            textBox1.TextChanged += (s, e) => ValidarAmbos();
+            textBox2.TextChanged += (s, e) => ValidarAmbos();
+            textBox3.TextChanged += (s, e) => ValidarAmbos();
+            comboBox1.SelectedIndexChanged += (s, e) => ValidarAmbos();
+            comboBox2.SelectedIndexChanged += (s, e) => ValidarAmbos();
+            comboBox3.SelectedIndexChanged += (s, e) => ValidarAmbos();
+        }
+
+        private void InicializarTercerJugador()
+        {
+            
+            label3 = new Label();
+            label3.Text = "Jugador 3 (Opcional)";
+            label3.Location = new Point(700, 217);
+            label3.Size = new Size(120, 13);
+            label3.BackColor = Color.Transparent;
+            this.Controls.Add(label3);
+
+            // TextBox para nombre del tercer jugador
+            textBox3 = new TextBox();
+            textBox3.Location = new Point(700, 242);
+            textBox3.Size = new Size(100, 20);
+            textBox3.TextChanged += (s, e) => ValidarAmbos();
+            this.Controls.Add(textBox3);
+
+            // ComboBox para color del tercer jugador
+            comboBox3 = new ComboBox();
+            comboBox3.Location = new Point(700, 268);
+            comboBox3.Size = new Size(121, 21);
+            comboBox3.SelectedIndexChanged += (s, e) => ValidarAmbos();
+            this.Controls.Add(comboBox3);
+
+            // CheckBox para activar tercer jugador
+            checkBox3 = new CheckBox();
+            checkBox3.Location = new Point(740, 305);
+            checkBox3.Size = new Size(15, 14);
+            checkBox3.BackColor = Color.Transparent;
+            checkBox3.CheckedChanged += checkBox3_CheckedChanged;
+            this.Controls.Add(checkBox3);
+
+            // Label para advertencias del tercer jugador
+            labelad3 = new Label();
+            labelad3.Location = new Point(700, 324);
+            labelad3.Size = new Size(200, 13);
+            labelad3.BackColor = Color.Transparent;
+            labelad3.ForeColor = Color.Red;
+            this.Controls.Add(labelad3);
         }
 
         private void Acomodo_Load(object sender, EventArgs e)
@@ -16,17 +83,17 @@ namespace Risk_CR.Formularios
             pictureBoxPlay.Enabled = false;
             pictureBoxPlay.Visible = false;
 
-            comboBox1.Items.Add("Rojo");
-            comboBox1.Items.Add("Azul");
-            comboBox1.Items.Add("Verde");
-            comboBox1.Items.Add("Morado");
-            comboBox1.Items.Add("Amarillo");
+           
+            string[] colores = { "Rojo", "Azul", "Verde", "Morado", "Amarillo" };
 
-            comboBox2.Items.Add("Rojo");
-            comboBox2.Items.Add("Azul");
-            comboBox2.Items.Add("Verde");
-            comboBox2.Items.Add("Morado");
-            comboBox2.Items.Add("Amarillo");
+            comboBox1.Items.AddRange(colores);
+            comboBox2.Items.AddRange(colores);
+            comboBox3.Items.AddRange(colores);
+
+           
+            if (comboBox1.Items.Count > 0) comboBox1.SelectedIndex = 0;
+            if (comboBox2.Items.Count > 1) comboBox2.SelectedIndex = 1;
+            if (comboBox3.Items.Count > 2) comboBox3.SelectedIndex = 2;
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -34,25 +101,49 @@ namespace Risk_CR.Formularios
             this.Close();
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void pictureBoxPlay_Click(object sender, EventArgs e)
         {
             string nombre1 = textBox1.Text.Trim();
             string nombre2 = textBox2.Text.Trim();
+            string nombre3 = textBox3.Text.Trim();
 
             string color1 = comboBox1.SelectedItem?.ToString();
             string color2 = comboBox2.SelectedItem?.ToString();
+            string color3 = comboBox3.SelectedItem?.ToString();
 
+            ListaGod<Jugador> jugadores = new ListaGod<Jugador>();
+
+         
             Jugador jugador1 = new Jugador(nombre1, color1);
-            Jugador jugador2 = new Jugador(nombre2, color2);
-            Jugador ejercito_neutral = new Jugador("Ejercito Neutral", "Gris");
+            jugadores.Agregar(jugador1);
 
             
-            ListaGod<Jugador> jugadores = new ListaGod<Jugador> { jugador1, jugador2, ejercito_neutral };
+            Jugador jugador2 = new Jugador(nombre2, color2);
+            jugadores.Agregar(jugador2);
+
+       
+            if (checkBox3.Checked && !string.IsNullOrEmpty(nombre3) && !string.IsNullOrEmpty(color3))
+            {
+                
+                Jugador jugador3 = new Jugador(nombre3, color3);
+                jugadores.Agregar(jugador3);
+
+           
+                jugador1.TropasDisponibles = 21;
+                jugador2.TropasDisponibles = 21;
+                jugador3.TropasDisponibles = 21;
+            }
+            else
+            {
+              
+                Jugador ejercitoNeutral = new Jugador("Ejercito Neutral", "Gris");
+                jugadores.Agregar(ejercitoNeutral);
+
+                
+                jugador1.TropasDisponibles = 26;
+                jugador2.TropasDisponibles = 26;
+                ejercitoNeutral.TropasDisponibles = 26;
+            }
 
             this.Hide();
             MapaFormulario mapa = new MapaFormulario(jugadores);
@@ -60,135 +151,201 @@ namespace Risk_CR.Formularios
             this.Show();
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void ValidarAmbos()
         {
             string nombre1 = textBox1.Text.Trim();
             string nombre2 = textBox2.Text.Trim();
+            string nombre3 = textBox3.Text.Trim();
 
             string color1 = comboBox1.SelectedItem?.ToString();
             string color2 = comboBox2.SelectedItem?.ToString();
+            string color3 = comboBox3.SelectedItem?.ToString();
 
+        
             bool nombre1Valido = checkBox1.Checked && !string.IsNullOrEmpty(nombre1) && nombre1.Length <= 10;
-            bool nombre2Valido = checkBox2.Checked && !string.IsNullOrEmpty(nombre2) && nombre2.Length <= 10;
-
             bool color1Valido = !string.IsNullOrEmpty(color1);
+
+            
+            bool nombre2Valido = checkBox2.Checked && !string.IsNullOrEmpty(nombre2) && nombre2.Length <= 10;
             bool color2Valido = !string.IsNullOrEmpty(color2);
+
+          
             bool coloresDistintos = color1Valido && color2Valido && color1 != color2;
+            bool nombresDistintos = nombre1Valido && nombre2Valido && nombre1 != nombre2;
+            bool nombresNoSonNeutral = nombre1.ToLower() != "ejercito neutral" &&
+                                      nombre2.ToLower() != "ejercito neutral" &&
+                                      nombre3.ToLower() != "ejercito neutral";
 
-            bool todoCorrecto = nombre1Valido && nombre2Valido && color1Valido && color2Valido && coloresDistintos;
+            bool jugadoresPrincipalesListos = nombre1Valido && nombre2Valido &&
+                                            color1Valido && color2Valido &&
+                                            coloresDistintos && nombresDistintos &&
+                                            nombresNoSonNeutral;
 
-            pictureBoxPlay.Enabled = todoCorrecto;
-            pictureBoxPlay.Visible = todoCorrecto;
+            pictureBoxPlay.Enabled = jugadoresPrincipalesListos;
+            pictureBoxPlay.Visible = jugadoresPrincipalesListos;
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            string nombre = textBox1.Text.Trim();
-            string color1 = comboBox1.SelectedItem?.ToString();
             if (checkBox1.Checked)
             {
-                if (string.IsNullOrEmpty(nombre))
-                {
-                    labelad.Text = "Nombre vacío.";
-                    checkBox1.Checked = false;
-                }
-                else if (nombre.Length > 10)
-                {
-                    labelad.Text = "Máximo 10 caracteres.";
-                    checkBox1.Checked = false;
-                }
-                else if (nombre == textBox2.Text.Trim() && checkBox2.Checked)
-                {
-                    labelad.Text = "Nombre ya en uso.";
-                    checkBox1.Checked = false;
-                }
-                else if (string.IsNullOrEmpty(color1))
-                {
-                    labelad.Text = "Seleccione un color.";
-                    checkBox1.Checked = false;
-                }
-                else if (color1 == comboBox2.SelectedItem?.ToString() && checkBox2.Checked)
-                {
-                    labelad.Text = "Color ya en uso.";
-                    checkBox1.Checked = false;
-                }
-                else
-                {
-                    labelad.Text = "";
-                }
+                ValidarJugador(textBox1, comboBox1, labelad, 1);
             }
-
+            else
+            {
+                labelad.Text = "";
+            }
             ValidarAmbos();
         }
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
-            string nombre = textBox2.Text.Trim();
-            string color = comboBox2.SelectedItem?.ToString();
             if (checkBox2.Checked)
             {
-                if (string.IsNullOrEmpty(nombre))
-                {
-                    labelad2.Text = "Nombre vacío.";
-                    checkBox2.Checked = false;
-                }
-                else if (nombre.Length > 10)
-                {
-                    labelad2.Text = "Máximo 10 caracteres.";
-                    checkBox2.Checked = false;
-                }
-                else if (nombre == textBox1.Text.Trim() && checkBox1.Checked)
-                {
-                    labelad2.Text = "Nombre ya en uso.";
-                    checkBox2.Checked = false;
-                }
-                else if (string.IsNullOrEmpty(color))
-                {
-                    labelad2.Text = "Seleccione un color.";
-                    checkBox2.Checked = false;
-                }
-                else if (color == comboBox1.SelectedItem?.ToString() && checkBox1.Checked)
-                {
-                    labelad2.Text = "Color ya en uso.";
-                    checkBox2.Checked = false;
-                }
-                else
-                {
-                    labelad2.Text = "";
-                }
+                ValidarJugador(textBox2, comboBox2, labelad2, 2);
+            }
+            else
+            {
+                labelad2.Text = "";
+            }
+            ValidarAmbos();
+        }
+
+        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox3.Checked)
+            {
+                ValidarJugador(textBox3, comboBox3, labelad3, 3);
+            }
+            else
+            {
+                labelad3.Text = "";
+            }
+            ValidarAmbos();
+        }
+
+        private void ValidarJugador(TextBox textBox, ComboBox comboBox, Label labelError, int numeroJugador)
+        {
+            string nombre = textBox.Text.Trim();
+            string color = comboBox.SelectedItem?.ToString();
+
+            if (string.IsNullOrEmpty(nombre))
+            {
+                labelError.Text = "Nombre vacío.";
+                ObtenerCheckBox(numeroJugador).Checked = false;
+                return;
             }
 
-            ValidarAmbos();
+            if (nombre.Length > 10)
+            {
+                labelError.Text = "Máximo 10 caracteres.";
+                ObtenerCheckBox(numeroJugador).Checked = false;
+                return;
+            }
+
+            if (nombre.ToLower() == "ejercito neutral")
+            {
+                labelError.Text = "No puedes usar 'Ejercito Neutral'.";
+                ObtenerCheckBox(numeroJugador).Checked = false;
+                return;
+            }
+
+      
+            if (NombreYaEnUso(nombre, numeroJugador))
+            {
+                labelError.Text = "Nombre ya en uso.";
+                ObtenerCheckBox(numeroJugador).Checked = false;
+                return;
+            }
+
+            if (string.IsNullOrEmpty(color))
+            {
+                labelError.Text = "Seleccione un color.";
+                ObtenerCheckBox(numeroJugador).Checked = false;
+                return;
+            }
+
+            
+            if (ColorYaEnUso(color, numeroJugador))
+            {
+                labelError.Text = "Color ya en uso.";
+                ObtenerCheckBox(numeroJugador).Checked = false;
+                return;
+            }
+
+            labelError.Text = "";
         }
 
-        private void label3_Click(object sender, EventArgs e)
+        private CheckBox ObtenerCheckBox(int numeroJugador)
         {
-
+            switch (numeroJugador)
+            {
+                case 1: return checkBox1;
+                case 2: return checkBox2;
+                case 3: return checkBox3;
+                default: return null;
+            }
         }
 
-        private void label3_Click_1(object sender, EventArgs e)
+        private bool NombreYaEnUso(string nombre, int jugadorActual)
         {
-
+            for (int i = 1; i <= 3; i++)
+            {
+                if (i != jugadorActual)
+                {
+                    TextBox textBox = ObtenerTextBox(i);
+                    CheckBox checkBox = ObtenerCheckBox(i);
+                    if (checkBox.Checked && textBox.Text.Trim() == nombre)
+                        return true;
+                }
+            }
+            return false;
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private bool ColorYaEnUso(string color, int jugadorActual)
         {
-            ValidarAmbos();
+            for (int i = 1; i <= 3; i++)
+            {
+                if (i != jugadorActual)
+                {
+                    ComboBox comboBox = ObtenerComboBox(i);
+                    CheckBox checkBox = ObtenerCheckBox(i);
+                    if (checkBox.Checked && comboBox.SelectedItem?.ToString() == color)
+                        return true;
+                }
+            }
+            return false;
         }
 
-        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        private TextBox ObtenerTextBox(int numero)
         {
-            ValidarAmbos();
+            switch (numero)
+            {
+                case 1: return textBox1;
+                case 2: return textBox2;
+                case 3: return textBox3;
+                default: return null;
+            }
         }
+
+        private ComboBox ObtenerComboBox(int numero)
+        {
+            switch (numero)
+            {
+                case 1: return comboBox1;
+                case 2: return comboBox2;
+                case 3: return comboBox3;
+                default: return null;
+            }
+        }
+
+        
+        private void label1_Click(object sender, EventArgs e) { }
+        private void textBox1_TextChanged(object sender, EventArgs e) { }
+        private void textBox2_TextChanged(object sender, EventArgs e) { }
+        private void label3_Click(object sender, EventArgs e) { }
+        private void label3_Click_1(object sender, EventArgs e) { }
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e) { }
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e) { }
     }
 }

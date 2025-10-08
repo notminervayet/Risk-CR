@@ -352,7 +352,7 @@ namespace Risk_CR
                                     if (exito)
                                     {
                                         terrClickeado.ActualizarVisualmente();
-                                        ActualizarUI();
+                                        ActualizarUI(); 
                                     }
                                     break;
 

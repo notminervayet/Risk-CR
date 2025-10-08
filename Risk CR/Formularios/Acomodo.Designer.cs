@@ -131,20 +131,22 @@
             // labelad
             // 
             this.labelad.AutoSize = true;
+            this.labelad.BackColor = System.Drawing.Color.Transparent;
+            this.labelad.ForeColor = System.Drawing.Color.Red;
             this.labelad.Location = new System.Drawing.Point(420, 324);
             this.labelad.Name = "labelad";
             this.labelad.Size = new System.Drawing.Size(0, 13);
             this.labelad.TabIndex = 8;
-            this.labelad.Click += new System.EventHandler(this.label3_Click);
             // 
             // labelad2
             // 
             this.labelad2.AutoSize = true;
+            this.labelad2.BackColor = System.Drawing.Color.Transparent;
+            this.labelad2.ForeColor = System.Drawing.Color.Red;
             this.labelad2.Location = new System.Drawing.Point(1027, 333);
             this.labelad2.Name = "labelad2";
             this.labelad2.Size = new System.Drawing.Size(0, 13);
             this.labelad2.TabIndex = 9;
-            this.labelad2.Click += new System.EventHandler(this.label3_Click_1);
             // 
             // comboBox1
             // 

@@ -43,7 +43,10 @@ namespace Risk_CR
             Jugadores = jugadores;
             Territorios = territorios;
 
-        
+         
+            bool modoTresJugadores = false;
+            EjercitoNeutral = null;
+
             for (int i = 0; i < Jugadores.Count; i++)
             {
                 if (Jugadores.Obtener(i).Nombre == "Ejercito Neutral")
@@ -53,23 +56,14 @@ namespace Risk_CR
                 }
             }
 
-           
-            if (EjercitoNeutral == null)
-            {
-                EjercitoNeutral = new Jugador("Ejercito Neutral", "Gris");
-                Jugadores.Agregar(EjercitoNeutral);
-            }
-            else
-            {
-                Jugadores.Remover(EjercitoNeutral);
-                Jugadores.Agregar(EjercitoNeutral);
-            }
+            
+            modoTresJugadores = (EjercitoNeutral == null);
 
-           
+         
             for (int i = 0; i < Jugadores.Count; i++)
             {
                 Jugador jugador = Jugadores.Obtener(i);
-                if (jugador.Nombre.ToLower() == "ejercito neutral" && jugador != EjercitoNeutral)
+                if (jugador.Nombre.ToLower() == "ejercito neutral" && modoTresJugadores)
                 {
                     throw new InvalidOperationException("No se permite usar 'Ejercito Neutral' como nombre de jugador.");
                 }
@@ -77,12 +71,14 @@ namespace Risk_CR
 
             DistribuirTerritorios();
 
+         
             for (int i = 0; i < Jugadores.Count; i++)
             {
-                if (Jugadores.Obtener(i) != EjercitoNeutral)
+                Jugador jugador = Jugadores.Obtener(i);
+                if (modoTresJugadores || jugador != EjercitoNeutral)
                 {
                     turnoActual = i;
-                    JugadorActual = Jugadores.Obtener(i);
+                    JugadorActual = jugador;
                     indiceInicioColocacion = turnoActual;
                     break;
                 }
@@ -131,8 +127,12 @@ namespace Risk_CR
 
         private bool EsJugadorActivo(Jugador j)
         {
-            return j != EjercitoNeutral
-                && j.TerritoriosControlados.Count > 0;
+            
+            if (EjercitoNeutral == null)
+                return j.TerritoriosControlados.Count > 0;
+
+            
+            return j != EjercitoNeutral && j.TerritoriosControlados.Count > 0;
         }
 
         public void AvanzarTurno()
@@ -166,87 +166,137 @@ namespace Risk_CR
                 arrayTerritorios[randomIndex] = temp;
             }
 
-            for (int i = 0; i < arrayTerritorios.Length; i++)
+            
+            bool modoTresJugadores = (EjercitoNeutral == null);
+
+            if (modoTresJugadores)
             {
-                if (i < 14)
+              
+                for (int i = 0; i < arrayTerritorios.Length; i++)
                 {
-                    Jugadores.Obtener(0).AgregarTerritorio(arrayTerritorios[i]);
-                    arrayTerritorios[i].CambiarOcupante(Jugadores.Obtener(0));
-                }
-                else if (i < 28)
-                {
-                    Jugadores.Obtener(1).AgregarTerritorio(arrayTerritorios[i]);
-                    arrayTerritorios[i].CambiarOcupante(Jugadores.Obtener(1));
-                }
-                else
-                {
-                    EjercitoNeutral.AgregarTerritorio(arrayTerritorios[i]);
-                    arrayTerritorios[i].CambiarOcupante(EjercitoNeutral);
-                }
-
-                arrayTerritorios[i].AgregarTropas(1);
-            }
-
-
-            for (int j = 0; j < Jugadores.Count; j++)
-            {
-                if (Jugadores.Obtener(j) == EjercitoNeutral)
-                {
-                    Jugadores.Obtener(j).TropasDisponibles = 14;
-                }
-                else
-                {
-                    Jugadores.Obtener(j).TropasDisponibles = 26;
+                    if (i < 14)
+                    {
+                        Jugadores.Obtener(0).AgregarTerritorio(arrayTerritorios[i]);
+                        arrayTerritorios[i].CambiarOcupante(Jugadores.Obtener(0));
+                    }
+                    else if (i < 28)
+                    {
+                        Jugadores.Obtener(1).AgregarTerritorio(arrayTerritorios[i]);
+                        arrayTerritorios[i].CambiarOcupante(Jugadores.Obtener(1));
+                    }
+                    else
+                    {
+                        Jugadores.Obtener(2).AgregarTerritorio(arrayTerritorios[i]);
+                        arrayTerritorios[i].CambiarOcupante(Jugadores.Obtener(2));
+                    }
+                    arrayTerritorios[i].AgregarTropas(1);
                 }
             }
+            else
+            {
+               
+                for (int i = 0; i < arrayTerritorios.Length; i++)
+                {
+                    if (i < 14)
+                    {
+                        Jugadores.Obtener(0).AgregarTerritorio(arrayTerritorios[i]);
+                        arrayTerritorios[i].CambiarOcupante(Jugadores.Obtener(0));
+                    }
+                    else if (i < 28)
+                    {
+                        Jugadores.Obtener(1).AgregarTerritorio(arrayTerritorios[i]);
+                        arrayTerritorios[i].CambiarOcupante(Jugadores.Obtener(1));
+                    }
+                    else
+                    {
+                        EjercitoNeutral.AgregarTerritorio(arrayTerritorios[i]);
+                        arrayTerritorios[i].CambiarOcupante(EjercitoNeutral);
+                    }
+                    arrayTerritorios[i].AgregarTropas(1);
+                }
+            }
+
+          
         }
-        public bool ColocarTropaInicial(Territorio territorio)
-        {
-            if (FaseActual != FaseTurno.ColocacionInicial ||
-                !TerritorioPerteneceAJugadorActual(territorio) ||
-                JugadorActual.TropasDisponibles <= 0)
-            {
-                return false;
-            }
-
-            territorio.AgregarTropas(1);
-            JugadorActual.TropasDisponibles--;
-
-
-            SiguienteJugadorColocacion();
-
-            return true;
-        }
-
         private void SiguienteJugadorColocacion()
         {
+         
             if (TodosJugadoresTerminaron())
             {
                 FaseActual = FaseTurno.Refuerzo;
 
-
-                turnoActual = indiceInicioColocacion;
-                JugadorActual = Jugadores.Obtener(turnoActual);
-
-
-                DarRefuerzosAlJugador();
-
+           
+                for (int i = 0; i < Jugadores.Count; i++)
+                {
+                    Jugador jugador = Jugadores.Obtener(i);
+                    if (EsJugadorActivo(jugador))
+                    {
+                        turnoActual = i;
+                        JugadorActual = jugador;
+                        DarRefuerzosAlJugador();
+                        return;
+                    }
+                }
                 return;
             }
+
+            
+            int intentos = 0;
+            int indiceInicial = turnoActual;
 
             do
             {
                 turnoActual = (turnoActual + 1) % Jugadores.Count;
                 JugadorActual = Jugadores.Obtener(turnoActual);
+                intentos++;
+
+                if (JugadorActual.TropasDisponibles > 0)
+                {
+                
+                    if (JugadorActual == EjercitoNeutral)
+                    {
+                        ColocarTropaNeutralAutomatica();
+
+                        if (EjercitoNeutral.TropasDisponibles <= 0)
+                        {
+                     
+                            FaseActual = FaseTurno.Refuerzo;
+                            for (int i = 0; i < Jugadores.Count; i++)
+                            {
+                                Jugador jugador = Jugadores.Obtener(i);
+                                if (EsJugadorActivo(jugador))
+                                {
+                                    turnoActual = i;
+                                    JugadorActual = jugador;
+                                    DarRefuerzosAlJugador();
+                                    return;
+                                }
+                            }
+                        }
+                        
+                        intentos = 0;
+                        indiceInicial = turnoActual;
+                    }
+                    else
+                    {
+                        break; 
+                    }
+                }
             }
-            while (JugadorActual.TropasDisponibles <= 0);
+            while (intentos < Jugadores.Count);
+        }
 
-
-            if (JugadorActual == EjercitoNeutral)
+        private bool TodosJugadoresTerminaron()
+        {
+            for (int i = 0; i < Jugadores.Count; i++)
             {
-                ColocarTropaNeutralAutomatica();
-                SiguienteJugadorColocacion();
+                Jugador jugador = Jugadores.Obtener(i);
+                if (jugador.TropasDisponibles > 0)
+                {
+                    return false;
+                }
             }
+            return true;
         }
         public bool VerificarVictoria()
         {
@@ -334,24 +384,13 @@ namespace Risk_CR
             Random rnd = new Random();
 
             int randomIndex = rnd.Next(EjercitoNeutral.TerritoriosControlados.Count);
-            Territorio territorio = EjercitoNeutral.TerritoriosControlados.Obtener(randomIndex);
+            Territorio territorioAleatorio = EjercitoNeutral.TerritoriosControlados.Obtener(randomIndex);
 
-            territorio.AgregarTropas(1);
+            
+            territorioAleatorio.AgregarTropas(1);
             EjercitoNeutral.TropasDisponibles--;
         }
 
-        private bool TodosJugadoresTerminaron()
-        {
-            for (int i = 0; i < Jugadores.Count; i++)
-            {
-                Jugador jugador = Jugadores.Obtener(i);
-                if (jugador.TropasDisponibles > 0)
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
 
         public bool ReforzarTerritorio(Territorio territorio, int cantidad)
         {
@@ -429,6 +468,23 @@ namespace Risk_CR
             };
             return true;
         }
+        public bool ColocarTropaInicial(Territorio territorio)
+        {
+            if (FaseActual != FaseTurno.ColocacionInicial ||
+                JugadorActual.TropasDisponibles <= 0 ||
+                !TerritorioPerteneceAJugadorActual(territorio))
+            {
+                return false;
+            }
+
+            territorio.AgregarTropas(1);
+            JugadorActual.TropasDisponibles--;
+
+        
+            SiguienteJugadorColocacion();
+
+            return true;
+        }
 
         public Dado ResolverAtaque(int tropasAtacante, int tropasDefensor)
         {
@@ -464,12 +520,11 @@ namespace Risk_CR
             JugadorActual.AgregarTerritorio(territorioConquistado);
             territorioConquistado.CambiarOcupante(JugadorActual);
 
-            // Mover tropas después de conquistar
+     
             int tropasAMover = Math.Min(AtaqueActual.TropasAtacante, AtaqueActual.Origen.Tropas - 1);
             AtaqueActual.Origen.RemoverTropas(tropasAMover);
             territorioConquistado.AgregarTropas(tropasAMover);
 
-            // Reclamar carta si existe
             if (territorioConquistado.TieneCarta)
             {
                 Carta nuevaCarta = territorioConquistado.ReclamarCarta();
