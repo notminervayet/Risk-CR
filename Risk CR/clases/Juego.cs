@@ -561,7 +561,6 @@ namespace Risk_CR
             origen.RemoverTropas(cantidad);
             destino.AgregarTropas(cantidad);
 
-           
             AvanzarFase();
             return true;
         }

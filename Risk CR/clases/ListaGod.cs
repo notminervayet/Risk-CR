@@ -17,10 +17,12 @@ namespace Risk_CR
             cantidad = 0;
         }
 
+        //cuenta de elementos en la lista
         public int Count => cantidad;
 
         public T Obtener(int index)
         {
+            // Verificar que el índice esté dentro de los límites
             if (index < 0 || index >= cantidad)
                 throw new IndexOutOfRangeException();
             return elementos[index];
@@ -28,13 +30,14 @@ namespace Risk_CR
 
         public void Establecer(int index, T value)
         {
+            //cambiar el valor en el índice especificado por otro valor
             if (index < 0 || index >= cantidad)
                 throw new IndexOutOfRangeException();
             elementos[index] = value;
         }
-
         public void Agregar(T item)
         {
+            // Si el array está lleno, duplica su tamaño creando uno nuevo y copiando los elementos
             if (cantidad >= capacidad)
             {
                 capacidad *= 2;
@@ -45,8 +48,6 @@ namespace Risk_CR
             }
             elementos[cantidad++] = item;
         }
-
-       
         public void Add(T item)
         {
             Agregar(item);
@@ -54,6 +55,7 @@ namespace Risk_CR
 
         public bool Contiene(T item)
         {
+            //revisar si el elemento está en la lista
             for (int i = 0; i < cantidad; i++)
             {
                 if (elementos[i] == null && item == null)
@@ -66,6 +68,7 @@ namespace Risk_CR
 
         public bool Remover(T item)
         {
+            //eliminar el primer elemento que coincida con el valor especificado
             for (int i = 0; i < cantidad; i++)
             {
                 if ((elementos[i] == null && item == null) ||
@@ -80,14 +83,15 @@ namespace Risk_CR
 
         private void EliminarEnIndice(int index)
         {
+            //eliminar el elemento en el índice especificado
             for (int i = index; i < cantidad - 1; i++)
                 elementos[i] = elementos[i + 1];
             cantidad--;
             elementos[cantidad] = default(T);
         }
-
         public T[] ConvertirAArray()
         {
+            //convertir la lista a un array
             T[] array = new T[cantidad];
             for (int i = 0; i < cantidad; i++)
                 array[i] = elementos[i];
@@ -98,14 +102,13 @@ namespace Risk_CR
         {
             cantidad = 0;
         }
-
         
         public IEnumerator<T> GetEnumerator()
         {
+            //iterador para recorrer la lista
             for (int i = 0; i < cantidad; i++)
                 yield return elementos[i];
         }
-
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();

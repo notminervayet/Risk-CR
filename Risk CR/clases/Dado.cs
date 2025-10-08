@@ -14,12 +14,14 @@ namespace Risk_CR
          
         public Dado()
         {
+            //inicializa las listas vacias
             AtacanteTiradas = new ListaGod<int>();
             DefensorTiradas = new ListaGod<int>();
         }
 
         public void LanzarYComparar(int dadosAtacante, int dadosDefensor)
         {
+            //validaciones sobre la cantidad de dados
             if (dadosAtacante < 1 || dadosAtacante > 3)
                 throw new ArgumentOutOfRangeException(nameof(dadosAtacante), "El atacante debe lanzar 1-3 dados.");
             if (dadosDefensor < 1 || dadosDefensor > 2)
@@ -33,6 +35,7 @@ namespace Risk_CR
 
         private ListaGod<int> LanzarDados(int cantidad)
         {
+            //genera las tiradas aleatorias del 1 al 6
             var tiradas = new ListaGod<int>();
             for (int i = 0; i < cantidad; i++)
                 tiradas.Agregar(rng.Next(1, 7));
@@ -43,6 +46,7 @@ namespace Risk_CR
 
         private void OrdenarDescendente(ListaGod<int> lista)
         {
+            //ordena la lista de dados de mayor a menor con comparaciones
             int n = lista.Count;
             for (int i = 0; i < n - 1; i++)
             {
@@ -64,6 +68,8 @@ namespace Risk_CR
             EjercitosPerdidosDefensor = 0;
 
             int rondas = AtacanteTiradas.Count < DefensorTiradas.Count
+                         // cuantas rondas se comparan, depende del que tenga menos dados
+                         // ? si es verdadero : si es falso
                          ? AtacanteTiradas.Count
                          : DefensorTiradas.Count;
 

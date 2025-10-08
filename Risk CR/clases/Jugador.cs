@@ -1,6 +1,4 @@
-﻿
-
-namespace Risk_CR.Jugadores
+﻿namespace Risk_CR.Jugadores
 {
     public class Jugador
     {
@@ -21,6 +19,7 @@ namespace Risk_CR.Jugadores
 
         public void AgregarTerritorio(Territorio territorio)
         {
+            //si no contiene territoriose agrega
             if (!TerritoriosControlados.Contiene(territorio)) 
             {
                 TerritoriosControlados.Agregar(territorio); 
@@ -30,6 +29,7 @@ namespace Risk_CR.Jugadores
 
         public void RemoverTerritorio(Territorio territorio)
         {
+            //quita al actual jugador del territorio
             if (TerritoriosControlados.Contiene(territorio)) 
             {
                 TerritoriosControlados.Remover(territorio);
@@ -44,6 +44,7 @@ namespace Risk_CR.Jugadores
 
         public void DesplegarTropas(Territorio territorio, int cantidad)
         {
+            //segun las validaciones pone tropas y resta de las que tenia
             if (TropasDisponibles >= cantidad && TerritoriosControlados.Contiene(territorio))
             {
                 territorio.Tropas += cantidad;

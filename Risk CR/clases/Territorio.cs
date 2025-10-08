@@ -32,6 +32,7 @@ namespace Risk_CR
 
         public void AgregarAdyacente(Territorio territorioAdyacente)
         {
+            //establece las adyacencias segun territorioAdyacente
             if (!TerritoriosAdyacentes.Contiene(territorioAdyacente)) 
             {
                 TerritoriosAdyacentes.Agregar(territorioAdyacente); 
@@ -113,11 +114,13 @@ namespace Risk_CR
 
         public bool PuedeAtacar()
         {
+            //solo ataca si tiene 2 o mas tropas
             return Tropas >= 2;
         }
 
         public bool EsAdyacente(Territorio otroTerritorio)
         {
+            //revisa si es adyacente
             return TerritoriosAdyacentes.Contiene(otroTerritorio);
         }
 
@@ -128,6 +131,7 @@ namespace Risk_CR
 
         public string ObtenerNombresAdyacentes()
         {
+            //genera una lista con los nombres de los territorios adyacentes
             ListaGod<string> nombres = new ListaGod<string>(); 
             for (int i = 0; i < TerritoriosAdyacentes.Count; i++) 
             {
@@ -139,6 +143,8 @@ namespace Risk_CR
 
         public Carta ReclamarCarta()
         {
+
+            //si tiene carta, la crea y la devuelve
             if (TieneCarta)
             {
                 TieneCarta = false;

@@ -1,6 +1,4 @@
-﻿
-
-namespace Risk_CR
+﻿namespace Risk_CR
 {
     public enum TipoCarta
     {
@@ -16,6 +14,7 @@ namespace Risk_CR
 
         public Carta(string territorio, TipoCarta tipo)
         {
+            //asigna territorio y tipo
             Territorio = territorio;
             Tipo = tipo;
         }
