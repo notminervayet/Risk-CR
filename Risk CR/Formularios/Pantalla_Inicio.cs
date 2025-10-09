@@ -4,15 +4,11 @@ using System.Media;
 using System.Windows.Forms;
 using Risk_CR.Formularios;
 
-
-
 namespace Risk_CR
 {
     
     public partial class CR_Risk : Form
     {
-
-        
 
         public CR_Risk()
         {
@@ -31,11 +27,11 @@ namespace Risk_CR
         
         private void Pantalla_Inicio_Load(object sender, EventArgs e)
         {
+            //musica de fondo
             string ruta = Path.Combine(Application.StartupPath,"Formularios", "sonido", "Selva.wav");
             SoundPlayer selva = new SoundPlayer(ruta);
             selva.Play();
             selva.PlayLooping();
-
         }
 
         private void pictureBox3_Click_1(object sender, EventArgs e)

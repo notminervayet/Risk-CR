@@ -25,11 +25,13 @@ namespace Risk_CR.Formularios
 
         private void InicializarControles()
         {
+            // Lista de territorios destino
             listDestinos = new ListBox
             {
                 Location = new Point(20, 20),
                 Size = new Size(300, 120)
             };
+            // Llenar la lista con territorios adyacentes ocupados por el jugador actual
             for (int i = 0; i < territorioOrigen.TerritoriosAdyacentes.Count; i++)
             {
                 var v = territorioOrigen.TerritoriosAdyacentes.Obtener(i);
@@ -39,6 +41,7 @@ namespace Risk_CR.Formularios
 
             nudCantidad = new NumericUpDown
             {
+                //cuantos mover
                 Location = new Point(20, 160),
                 Minimum = 1,
                 Maximum = Math.Max(1, territorioOrigen.Tropas - 1),
@@ -47,6 +50,7 @@ namespace Risk_CR.Formularios
 
             var lblInfo = new Label
             {
+                //info del territorio origen
                 Text = $"Origen: {territorioOrigen.Nombre} - Tropas: {territorioOrigen.Tropas}",
                 Location = new Point(20, 200),
                 AutoSize = true
@@ -68,6 +72,7 @@ namespace Risk_CR.Formularios
                 DialogResult = DialogResult.Cancel
             };
 
+            // Agregar controles al formulario
             Controls.Add(listDestinos);
             Controls.Add(nudCantidad);
             Controls.Add(lblInfo);
@@ -94,6 +99,7 @@ namespace Risk_CR.Formularios
                 return;
             }
 
+            // Realizar el movimiento
             var destino = ((Item)listDestinos.SelectedItem).Territorio;
             int cantidad = (int)nudCantidad.Value;
 
@@ -114,6 +120,7 @@ namespace Risk_CR.Formularios
 
         private class Item
         {
+            //clase para mostrar territorios en la lista
             public Territorio Territorio { get; }
             public string Texto { get; }
             public Item(Territorio t, string texto)

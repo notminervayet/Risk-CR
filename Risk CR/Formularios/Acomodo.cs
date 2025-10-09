@@ -28,7 +28,7 @@ namespace Risk_CR.Formularios
 
         private void ConfigurarEventos()
         {
-            
+            //se validan los cambios en los controles   
             textBox1.TextChanged += (s, e) => ValidarAmbos();
             textBox2.TextChanged += (s, e) => ValidarAmbos();
             textBox3.TextChanged += (s, e) => ValidarAmbos();
@@ -80,10 +80,11 @@ namespace Risk_CR.Formularios
 
         private void Acomodo_Load(object sender, EventArgs e)
         {
+            //desactivar el boton de play al iniciar
             pictureBoxPlay.Enabled = false;
             pictureBoxPlay.Visible = false;
 
-           
+            // Agregar colores a los ComboBox
             string[] colores = { "Rojo", "Azul", "Verde", "Morado", "Amarillo" };
 
             comboBox1.Items.AddRange(colores);
@@ -98,11 +99,13 @@ namespace Risk_CR.Formularios
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
+            //boton de regresar al menu principal
             this.Close();
         }
 
         private void pictureBoxPlay_Click(object sender, EventArgs e)
         {
+            //recoger datos de los jugadores
             string nombre1 = textBox1.Text.Trim();
             string nombre2 = textBox2.Text.Trim();
             string nombre3 = textBox3.Text.Trim();
@@ -121,7 +124,7 @@ namespace Risk_CR.Formularios
             Jugador jugador2 = new Jugador(nombre2, color2);
             jugadores.Agregar(jugador2);
 
-       
+            //verificar si el tercer jugador esta activo
             if (checkBox3.Checked && !string.IsNullOrEmpty(nombre3) && !string.IsNullOrEmpty(color3))
             {
                 
@@ -153,6 +156,7 @@ namespace Risk_CR.Formularios
 
         private void ValidarAmbos()
         {
+            //verificar si los jugadores principales estan listos para iniciar el juego
             string nombre1 = textBox1.Text.Trim();
             string nombre2 = textBox2.Text.Trim();
             string nombre3 = textBox3.Text.Trim();
@@ -169,7 +173,7 @@ namespace Risk_CR.Formularios
             bool nombre2Valido = checkBox2.Checked && !string.IsNullOrEmpty(nombre2) && nombre2.Length <= 10;
             bool color2Valido = !string.IsNullOrEmpty(color2);
 
-          
+            // Validar tercer jugador solo si está activo y que no se llame "Ejercito Neutral"
             bool coloresDistintos = color1Valido && color2Valido && color1 != color2;
             bool nombresDistintos = nombre1Valido && nombre2Valido && nombre1 != nombre2;
             bool nombresNoSonNeutral = nombre1.ToLower() != "ejercito neutral" &&
@@ -187,6 +191,7 @@ namespace Risk_CR.Formularios
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
+            //validar el primer jugador
             if (checkBox1.Checked)
             {
                 ValidarJugador(textBox1, comboBox1, labelad, 1);
@@ -200,6 +205,7 @@ namespace Risk_CR.Formularios
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
+            //validar el segundo jugador
             if (checkBox2.Checked)
             {
                 ValidarJugador(textBox2, comboBox2, labelad2, 2);
@@ -213,6 +219,7 @@ namespace Risk_CR.Formularios
 
         private void checkBox3_CheckedChanged(object sender, EventArgs e)
         {
+            //validar el tercer jugador
             if (checkBox3.Checked)
             {
                 ValidarJugador(textBox3, comboBox3, labelad3, 3);
@@ -226,6 +233,7 @@ namespace Risk_CR.Formularios
 
         private void ValidarJugador(TextBox textBox, ComboBox comboBox, Label labelError, int numeroJugador)
         {
+            //metodo que valida los datos de cada jugador
             string nombre = textBox.Text.Trim();
             string color = comboBox.SelectedItem?.ToString();
 
@@ -287,6 +295,7 @@ namespace Risk_CR.Formularios
             }
         }
 
+        //metods auxiliares para validar nombres y colores
         private bool NombreYaEnUso(string nombre, int jugadorActual)
         {
             for (int i = 1; i <= 3; i++)
@@ -338,7 +347,6 @@ namespace Risk_CR.Formularios
                 default: return null;
             }
         }
-
         
         private void label1_Click(object sender, EventArgs e) { }
         private void textBox1_TextChanged(object sender, EventArgs e) { }

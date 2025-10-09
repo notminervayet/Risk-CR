@@ -42,7 +42,6 @@ namespace Risk_CR
         {
             Jugadores = jugadores;
             Territorios = territorios;
-
          
             bool modoTresJugadores = false;
             EjercitoNeutral = null;
@@ -55,11 +54,9 @@ namespace Risk_CR
                     break;
                 }
             }
-
             
             modoTresJugadores = (EjercitoNeutral == null);
 
-         
             for (int i = 0; i < Jugadores.Count; i++)
             {
                 Jugador jugador = Jugadores.Obtener(i);
@@ -70,7 +67,6 @@ namespace Risk_CR
             }
 
             DistribuirTerritorios();
-
          
             for (int i = 0; i < Jugadores.Count; i++)
             {
@@ -83,7 +79,6 @@ namespace Risk_CR
                     break;
                 }
             }
-
             FaseActual = FaseTurno.ColocacionInicial;
         }
 
@@ -121,7 +116,6 @@ namespace Risk_CR
                 MessageBox.Show($"¡{JugadorActual.Nombre} ha conquistado el mundo!\n¡Felicidades, has ganado el juego!",
                               "Victoria", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-
             return true; 
         }
 
@@ -148,7 +142,6 @@ namespace Risk_CR
             JugadorActual = Jugadores.Obtener(turnoActual);
         }
 
-
         private void DistribuirTerritorios()
         {
             Territorio[] arrayTerritorios = new Territorio[Territorios.Count];
@@ -165,7 +158,6 @@ namespace Risk_CR
                 arrayTerritorios[i] = arrayTerritorios[randomIndex];
                 arrayTerritorios[randomIndex] = temp;
             }
-
             
             bool modoTresJugadores = (EjercitoNeutral == null);
 
@@ -214,10 +206,9 @@ namespace Risk_CR
                     }
                     arrayTerritorios[i].AgregarTropas(1);
                 }
-            }
-
-          
+            } 
         }
+
         private void SiguienteJugadorColocacion()
         {
          
@@ -225,7 +216,6 @@ namespace Risk_CR
             {
                 FaseActual = FaseTurno.Refuerzo;
 
-           
                 for (int i = 0; i < Jugadores.Count; i++)
                 {
                     Jugador jugador = Jugadores.Obtener(i);
@@ -239,7 +229,6 @@ namespace Risk_CR
                 }
                 return;
             }
-
             
             int intentos = 0;
             int indiceInicial = turnoActual;
@@ -273,7 +262,6 @@ namespace Risk_CR
                                 }
                             }
                         }
-                        
                         intentos = 0;
                         indiceInicial = turnoActual;
                     }
@@ -298,6 +286,7 @@ namespace Risk_CR
             }
             return true;
         }
+
         public bool VerificarVictoria()
         {
            
@@ -307,7 +296,6 @@ namespace Risk_CR
 
                 if (jugador == EjercitoNeutral)
                     continue;
-
          
                 if (jugador.TerritoriosControlados.Count == TOTAL_TERRITORIOS)
                 {
@@ -320,8 +308,7 @@ namespace Risk_CR
         public void DarRefuerzosAlJugador()
         {
             if (FaseActual != FaseTurno.Refuerzo) return;
-
-           
+   
             int cantidadTerritorios = JugadorActual.TerritoriosControlados.Count;
             int refuerzosBase = cantidadTerritorios / 3;
             if (refuerzosBase < 3) refuerzosBase = 3;
@@ -336,8 +323,7 @@ namespace Risk_CR
 
             int totalRefuerzos = refuerzosBase + bonusExtra;
             JugadorActual.TropasDisponibles += totalRefuerzos;
-
-          
+     
             if (JugadorActual.ManoCartas.Count >= 6)
             {
                 MessageBox.Show($"Tienes {JugadorActual.ManoCartas.Count} cartas. Debes intercambiar al menos un trío antes de poder atacar.",
@@ -351,12 +337,10 @@ namespace Risk_CR
             return JugadorActual.ManoCartas.Count >= 3;
         }
 
-
         private bool JugadorTieneTodaLaProvincia(string nombreProvincia)
         {
             int territoriosEnProvincia = 0;
             int territoriosQueTiene = 0;
-
 
             for (int i = 0; i < Territorios.Count; i++)
             {
@@ -373,7 +357,6 @@ namespace Risk_CR
                     }
                 }
             }
-
             return territoriosQueTiene == territoriosEnProvincia;
         }
 
@@ -385,12 +368,10 @@ namespace Risk_CR
 
             int randomIndex = rnd.Next(EjercitoNeutral.TerritoriosControlados.Count);
             Territorio territorioAleatorio = EjercitoNeutral.TerritoriosControlados.Obtener(randomIndex);
-
-            
+ 
             territorioAleatorio.AgregarTropas(1);
             EjercitoNeutral.TropasDisponibles--;
         }
-
 
         public bool ReforzarTerritorio(Territorio territorio, int cantidad)
         {
@@ -433,7 +414,6 @@ namespace Risk_CR
                 if (actual == destino)
                     return true;
 
-               
                 for (int i = 0; i < actual.TerritoriosAdyacentes.Count; i++)
                 {
                     var vecino = actual.TerritoriosAdyacentes.Obtener(i);
@@ -444,11 +424,8 @@ namespace Risk_CR
                     }
                 }
             }
-
             return false;
         }
-
-
 
         public bool IniciarAtaque(Territorio origen, Territorio destino)
         {
@@ -479,7 +456,6 @@ namespace Risk_CR
 
             territorio.AgregarTropas(1);
             JugadorActual.TropasDisponibles--;
-
         
             SiguienteJugadorColocacion();
 
@@ -495,11 +471,9 @@ namespace Risk_CR
 
             var dado = new Dado();
             dado.LanzarYComparar(tropasAtacante, tropasDefensor);
-
          
             AtaqueActual.Origen.RemoverTropas(dado.EjercitosPerdidosAtacante);
             AtaqueActual.Destino.RemoverTropas(dado.EjercitosPerdidosDefensor);
-
            
             if (AtaqueActual.Destino.Tropas == 0)
             {
@@ -519,7 +493,6 @@ namespace Risk_CR
 
             JugadorActual.AgregarTerritorio(territorioConquistado);
             territorioConquistado.CambiarOcupante(JugadorActual);
-
      
             int tropasAMover = Math.Min(AtaqueActual.TropasAtacante, AtaqueActual.Origen.Tropas - 1);
             AtaqueActual.Origen.RemoverTropas(tropasAMover);
@@ -534,7 +507,6 @@ namespace Risk_CR
                     MessageBox.Show($"¡Recibiste una carta: {nuevaCarta.Territorio} - {nuevaCarta.Tipo}!", "Carta Obtenida");
                 }
             }
-
           
             if (VerificarVictoria())
             {
@@ -564,7 +536,5 @@ namespace Risk_CR
             AvanzarFase();
             return true;
         }
-
     }
-
 }
