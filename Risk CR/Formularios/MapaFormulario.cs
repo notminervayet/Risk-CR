@@ -101,6 +101,15 @@ namespace Risk_CR
             this.Controls.Add(btnIntercambiarCartas);
             btnIntercambiarCartas.BringToFront();
 
+            Button btnSalir = new Button();
+            btnSalir.Text = "Salir al Menú";
+            btnSalir.Size = new Size(150, 30);
+            btnSalir.Location = new Point(25, 380);
+            btnSalir.Click += (s, e) => this.Close();
+            this.Controls.Add(btnSalir);
+            btnSalir.BringToFront();
+
+
         }
 
 
@@ -516,6 +525,6 @@ namespace Risk_CR
             ActualizarUI();
         }
 
-
+        
     }
 }
